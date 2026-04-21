@@ -1,6 +1,6 @@
 # Story 2.5: Empty State and Toast Error Notification
 
-Status: review
+Status: done
 
 ## Story
 
@@ -209,3 +209,7 @@ Claude Sonnet 4.6
 - frontend/src/App.test.tsx (modified — updated toast role from alert to status)
 - frontend/tailwind.config.js (modified — added tailwindcss-animate plugin)
 - frontend/package.json (modified — added tailwindcss-animate dependency)
+
+### Review Findings
+
+- [x] [Review][Patch] Initial fetch failures now fall through to the empty-state UI, which can misreport a backend error as “No todos yet.” after the toast dismisses [frontend/src/App.tsx:20]

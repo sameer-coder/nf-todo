@@ -12,7 +12,10 @@ export function DeleteButton({ onDelete }: DeleteButtonProps) {
       onClick={onDelete}
       className={cn(
         'w-11 h-11 flex items-center justify-center flex-shrink-0',
-        'opacity-30 md:opacity-0 md:group-hover:opacity-100',
+        'opacity-30',
+        '[@media(hover:hover)_and_(pointer:fine)]:opacity-0',
+        '[@media(hover:hover)_and_(pointer:fine)]:group-hover:opacity-100',
+        '[@media(hover:hover)_and_(pointer:fine)]:focus-visible:opacity-100',
         'motion-safe:transition-opacity',
         'text-neutral-400 hover:text-rose-500',
         'focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 rounded',

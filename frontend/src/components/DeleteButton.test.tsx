@@ -23,9 +23,16 @@ describe('DeleteButton', () => {
     expect(btn.className).toContain('opacity-30')
   })
 
-  it('has md:group-hover:opacity-100 class for pointer device hover', () => {
+  it('reveals on hover-capable fine pointers', () => {
     render(<DeleteButton onDelete={() => {}} />)
     const btn = screen.getByLabelText('Delete todo')
-    expect(btn.className).toContain('md:group-hover:opacity-100')
+    expect(btn.className).toContain('[@media(hover:hover)_and_(pointer:fine)]:opacity-0')
+    expect(btn.className).toContain('[@media(hover:hover)_and_(pointer:fine)]:group-hover:opacity-100')
+  })
+
+  it('reveals on keyboard focus for hover-capable fine pointers', () => {
+    render(<DeleteButton onDelete={() => {}} />)
+    const btn = screen.getByLabelText('Delete todo')
+    expect(btn.className).toContain('[@media(hover:hover)_and_(pointer:fine)]:focus-visible:opacity-100')
   })
 })

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { TodoProvider, useTodos } from './context/TodoContext'
 import { ToastProvider, useToast } from './context/ToastContext'
 import { fetchTodos } from './api/todos'
@@ -13,12 +13,17 @@ function SkeletonRow() {
 function AppContent() {
   const { state, dispatch } = useTodos()
   const { showToast } = useToast()
+  const [hasLoadError, setHasLoadError] = useState(false)
 
   useEffect(() => {
     fetchTodos()
-      .then(todos => dispatch({ type: 'SET_TODOS', payload: todos }))
+      .then(todos => {
+        dispatch({ type: 'SET_TODOS', payload: todos })
+        setHasLoadError(false)
+      })
       .catch(() => {
         dispatch({ type: 'SET_TODOS', payload: [] })
+        setHasLoadError(true)
         showToast('Failed to load todos')
       })
   }, [dispatch, showToast])
@@ -35,7 +40,7 @@ function AppContent() {
         ) : (
           <>
             <AddTodoInput />
-            <TodoList />
+            <TodoList showEmptyState={!hasLoadError} />
           </>
         )}
       </div>

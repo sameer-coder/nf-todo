@@ -1,6 +1,6 @@
 # Story 2.4: Delete Todo
 
-Status: review
+Status: done
 
 ## Story
 
@@ -161,3 +161,8 @@ Claude Sonnet 4.6
 - frontend/src/components/DeleteButton.test.tsx (new)
 - frontend/src/components/TodoItem.tsx (modified)
 - frontend/src/components/TodoItem.test.tsx (modified)
+
+### Review Findings
+
+- [x] [Review][Patch] DeleteButton visibility is tied to the `md` breakpoint instead of input modality, so the Story 2.4 hover/touch behavior is wrong on small pointer devices and large touch devices [frontend/src/components/DeleteButton.tsx:15]
+- [x] [Review][Patch] DeleteButton remains visually hidden when focused via keyboard on desktop because focus does not restore opacity [frontend/src/components/DeleteButton.tsx:15]

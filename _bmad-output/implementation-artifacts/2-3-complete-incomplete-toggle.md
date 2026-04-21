@@ -1,6 +1,6 @@
 # Story 2.3: Complete/Incomplete Toggle
 
-Status: review
+Status: in-progress
 
 ## Story
 
@@ -159,3 +159,7 @@ Claude Sonnet 4.6
 - frontend/src/components/Checkbox.test.tsx (new)
 - frontend/src/components/TodoItem.tsx (modified)
 - frontend/src/components/TodoItem.test.tsx (modified)
+
+### Review Findings
+
+- [ ] [Review][Patch] Missing regression coverage for the completed-to-incomplete toggle path in Story 2.3 [frontend/src/components/TodoItem.test.tsx:59]

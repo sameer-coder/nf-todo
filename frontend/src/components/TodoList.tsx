@@ -2,11 +2,15 @@ import { useTodos } from '../context/TodoContext'
 import { TodoItem } from './TodoItem'
 import { EmptyState } from './EmptyState'
 
-export function TodoList() {
+interface TodoListProps {
+  showEmptyState?: boolean
+}
+
+export function TodoList({ showEmptyState = true }: TodoListProps) {
   const { state } = useTodos()
   const sorted = [...state.todos].sort((a, b) => a.order - b.order)
 
-  if (!state.isLoading && sorted.length === 0) {
+  if (showEmptyState && !state.isLoading && sorted.length === 0) {
     return <EmptyState variant="empty" />
   }
 

@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: '2026-04-21'
-last_updated: '2026-04-21T19:33:00Z'
+last_updated: '2026-04-21T19:59:00Z'
 project: nf-todo
 project_key: NOKEY
 tracking_system: file-system
@@ -55,9 +55,9 @@ development_status:
   epic-2: in-progress
   2-1-app-shell-layout-and-global-state-infrastructure: done
   2-2-add-todo-input-and-todo-list-display: done
-  2-3-complete-incomplete-toggle: review
-  2-4-delete-todo: review
-  2-5-empty-state-and-toast-error-notification: review
+  2-3-complete-incomplete-toggle: in-progress
+  2-4-delete-todo: done
+  2-5-empty-state-and-toast-error-notification: done
   epic-2-retrospective: optional
 
   # ─── EPIC 3: Inline Editing & Tags ─────────────────────────────────────────
