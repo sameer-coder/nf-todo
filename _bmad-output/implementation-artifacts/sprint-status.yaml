@@ -1,0 +1,89 @@
+# Sprint Status — nf-todo
+# Generated: 2026-04-20
+# Project: nf-todo
+# Project Key: NOKEY
+# Tracking System: file-system
+# Story Location: _bmad-output/implementation-artifacts
+#
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Epic Status Transitions:
+#   - backlog → in-progress: Automatically when first story is created (via create-story)
+#   - in-progress → done: Manually when all stories reach 'done' status
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review (via Dev's code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when first story is created
+# - Stories can be worked in parallel if team capacity allows
+# - SM typically creates next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+
+generated: '2026-04-20'
+last_updated: '2026-04-20T09:30:00Z'
+project: nf-todo
+project_key: NOKEY
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts
+
+development_status:
+  # ─── EPIC 1: Project Foundation & Infrastructure ───────────────────────────
+  epic-1: in-progress
+  1-1-initialize-monorepo-scaffolding-and-project-structure: done
+  1-2-docker-containerization-and-cold-start: done
+  1-3-database-schema-and-repository-abstraction: review
+  1-4-todo-rest-api-routes-with-input-validation: ready-for-dev
+  1-5-github-actions-ci-pipeline: ready-for-dev
+  epic-1-retrospective: optional
+
+  # ─── EPIC 2: Core Todo Management ──────────────────────────────────────────
+  epic-2: backlog
+  2-1-app-shell-layout-and-global-state-infrastructure: ready-for-dev
+  2-2-add-todo-input-and-todo-list-display: ready-for-dev
+  2-3-complete-incomplete-toggle: ready-for-dev
+  2-4-delete-todo: ready-for-dev
+  2-5-empty-state-and-toast-error-notification: ready-for-dev
+  epic-2-retrospective: optional
+
+  # ─── EPIC 3: Inline Editing & Tags ─────────────────────────────────────────
+  epic-3: backlog
+  3-1-inline-todo-title-editing: ready-for-dev
+  3-2-tag-assignment-via-hash-token-parsing: ready-for-dev
+  3-3-tag-display-as-chips-on-todo-rows: ready-for-dev
+  3-4-tag-removal-from-a-todo: ready-for-dev
+  epic-3-retrospective: optional
+
+  # ─── EPIC 4: Filtering ─────────────────────────────────────────────────────
+  epic-4: backlog
+  4-1-status-filter-bar: ready-for-dev
+  4-2-tag-filter-click-chip-to-filter: ready-for-dev
+  4-3-active-filter-chip-bar-with-dismiss-controls: ready-for-dev
+  4-4-combined-status-tag-filter-and-no-results-state: ready-for-dev
+  epic-4-retrospective: optional
+
+  # ─── EPIC 5: Drag-and-Drop Reordering ──────────────────────────────────────
+  epic-5: backlog
+  5-1-drag-handle-component-and-dnd-wiring: ready-for-dev
+  5-2-persist-reorder-via-api: ready-for-dev
+  epic-5-retrospective: optional
+
+  # ─── EPIC 6: E2E Test Suite & Documentation ────────────────────────────────
+  epic-6: backlog
+  6-1-playwright-e2e-test-suite: ready-for-dev
+  6-2-project-readme: ready-for-dev
+  epic-6-retrospective: optional
