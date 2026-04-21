@@ -1,6 +1,6 @@
 # Story 2.2: Add Todo Input and Todo List Display
 
-Status: review
+Status: done
 
 ## Story
 
@@ -73,6 +73,11 @@ So that I can quickly capture tasks and see everything I need to do.
 - [x] Task 6: Write `TodoItem.test.tsx` co-located tests
   - [x] Test: renders todo title
   - [x] Test: applies `line-through text-neutral-400` when `todo.completed = true`
+
+### Review Findings
+
+- [x] [Review][Patch] Toast failures are written to context state but never rendered in the UI, so the promised error toast is not actually shown [frontend/src/context/ToastContext.tsx:16]
+- [x] [Review][Patch] Optimistic add uses `state.todos.length` for the temporary `order`, which can place a new todo in the wrong position when existing order values are non-contiguous [frontend/src/components/AddTodoInput.tsx:25]
 
 ## Dev Notes
 

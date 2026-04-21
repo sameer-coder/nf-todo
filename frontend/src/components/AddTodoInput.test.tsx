@@ -1,8 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { useEffect } from 'react'
 import { AddTodoInput } from './AddTodoInput'
-import { TodoProvider } from '../context/TodoContext'
+import { TodoProvider, useTodos } from '../context/TodoContext'
 import { ToastProvider } from '../context/ToastContext'
 import * as todosApi from '../api/todos'
 import type { Todo } from '../types/todo'
@@ -15,6 +16,21 @@ function renderWithProviders() {
       </ToastProvider>
     </TodoProvider>
   )
+}
+
+function SeedTodos({ todos }: { todos: Todo[] }) {
+  const { dispatch } = useTodos()
+
+  useEffect(() => {
+    dispatch({ type: 'SET_TODOS', payload: todos })
+  }, [dispatch, todos])
+
+  return null
+}
+
+function TodoOrders() {
+  const { state } = useTodos()
+  return <output data-testid="todo-orders">{state.todos.map(todo => todo.order).join(',')}</output>
 }
 
 describe('AddTodoInput', () => {
@@ -131,5 +147,48 @@ describe('AddTodoInput', () => {
 
     await user.keyboard('{Escape}')
     expect(input.value).toBe('')
+  })
+
+  it('assigns optimistic order after the current maximum order', async () => {
+    const user = userEvent.setup()
+    vi.spyOn(todosApi, 'createTodo').mockReturnValue(new Promise(() => {}))
+
+    const seededTodos: Todo[] = [
+      {
+        id: 'first',
+        title: 'First',
+        completed: false,
+        order: 0,
+        tags: [],
+        createdAt: '2026-01-01T00:00:00Z',
+        updatedAt: '2026-01-01T00:00:00Z',
+      },
+      {
+        id: 'second',
+        title: 'Second',
+        completed: false,
+        order: 3,
+        tags: [],
+        createdAt: '2026-01-01T00:00:00Z',
+        updatedAt: '2026-01-01T00:00:00Z',
+      },
+    ]
+
+    render(
+      <TodoProvider>
+        <ToastProvider>
+          <SeedTodos todos={seededTodos} />
+          <AddTodoInput />
+          <TodoOrders />
+        </ToastProvider>
+      </TodoProvider>
+    )
+
+    const input = screen.getByPlaceholderText('Add a task…')
+    await user.type(input, 'Third{Enter}')
+
+    await waitFor(() => {
+      expect(screen.getByTestId('todo-orders').textContent).toBe('0,3,4')
+    })
   })
 })

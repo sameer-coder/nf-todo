@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, waitFor } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { renderHook, act } from '@testing-library/react'
 import App from './App'
 import { TodoProvider, useTodos } from './context/TodoContext'
@@ -27,7 +27,7 @@ describe('App', () => {
   it('renders 3 skeleton rows while loading', () => {
     vi.spyOn(todosApi, 'fetchTodos').mockReturnValue(new Promise(() => {}))
     render(<App />)
-    const skeletons = document.querySelectorAll('.animate-pulse')
+    const skeletons = document.querySelectorAll('.motion-safe\\:animate-pulse')
     expect(skeletons).toHaveLength(3)
   })
 
@@ -45,6 +45,13 @@ describe('App', () => {
     await waitFor(() => {
       expect(document.querySelectorAll('.animate-pulse')).toHaveLength(0)
     })
+  })
+
+  it('renders a toast when the initial fetch fails', async () => {
+    vi.spyOn(todosApi, 'fetchTodos').mockRejectedValue(new Error('network error'))
+    render(<App />)
+
+    expect((await screen.findByRole('alert')).textContent).toBe('Failed to load todos')
   })
 })
 

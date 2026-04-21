@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: '2026-04-21'
-last_updated: '2026-04-21T15:00:00Z'
+last_updated: '2026-04-21T19:21:30Z'
 project: nf-todo
 project_key: NOKEY
 tracking_system: file-system
@@ -53,8 +53,8 @@ development_status:
 
   # ─── EPIC 2: Core Todo Management ──────────────────────────────────────────
   epic-2: in-progress
-  2-1-app-shell-layout-and-global-state-infrastructure: review
-  2-2-add-todo-input-and-todo-list-display: review
+  2-1-app-shell-layout-and-global-state-infrastructure: done
+  2-2-add-todo-input-and-todo-list-display: done
   2-3-complete-incomplete-toggle: ready-for-dev
   2-4-delete-todo: ready-for-dev
   2-5-empty-state-and-toast-error-notification: ready-for-dev

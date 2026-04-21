@@ -6,7 +6,44 @@ import { AddTodoInput } from './components/AddTodoInput'
 import { TodoList } from './components/TodoList'
 
 function SkeletonRow() {
-  return <div className="h-10 bg-neutral-100 rounded animate-pulse motion-safe:animate-pulse mb-2" />
+  return <div className="mb-2 h-10 rounded bg-neutral-100 motion-safe:animate-pulse" />
+}
+
+function ToastViewport() {
+  const {
+    toast: { message },
+    clearToast,
+  } = useToast()
+
+  useEffect(() => {
+    if (!message) {
+      return
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      clearToast()
+    }, 3000)
+
+    return () => {
+      window.clearTimeout(timeoutId)
+    }
+  }, [clearToast, message])
+
+  if (!message) {
+    return null
+  }
+
+  return (
+    <div className="pointer-events-none fixed inset-x-4 bottom-4 z-10 flex justify-center">
+      <div
+        role="alert"
+        aria-live="assertive"
+        className="w-full max-w-md rounded border border-neutral-200 bg-white px-4 py-3 text-sm text-neutral-900 shadow-lg"
+      >
+        {message}
+      </div>
+    </div>
+  )
 }
 
 function AppContent() {
@@ -38,6 +75,7 @@ function AppContent() {
           </>
         )}
       </div>
+      <ToastViewport />
     </main>
   )
 }

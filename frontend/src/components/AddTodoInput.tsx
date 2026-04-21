@@ -17,12 +17,13 @@ export function AddTodoInput() {
   async function handleSubmit() {
     const trimmed = value.trim()
     if (!trimmed) return
+    const nextOrder = Math.max(...state.todos.map(todo => todo.order), -1) + 1
 
     const tempTodo: Todo = {
       id: crypto.randomUUID(),
       title: trimmed,
       completed: false,
-      order: state.todos.length,
+      order: nextOrder,
       tags: [],
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),

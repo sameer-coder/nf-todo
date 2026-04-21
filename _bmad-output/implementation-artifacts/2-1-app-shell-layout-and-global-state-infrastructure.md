@@ -1,6 +1,6 @@
 # Story 2.1: App Shell, Layout, and Global State Infrastructure
 
-Status: review
+Status: done
 
 ## Story
 
@@ -73,6 +73,10 @@ So that all subsequent UI stories have the shared infrastructure they need to re
   - [x] Test: skeleton rows render while loading
   - [x] Test: `SET_TODOS` populated after fetch (mock `fetchTodos`)
   - [x] Test: `TodoContext` and `ToastContext` are accessible from child components
+
+### Review Findings
+
+- [x] [Review][Patch] Skeleton animation is not reduced-motion-safe [frontend/src/App.tsx:9]
 
 ## Dev Notes
 
