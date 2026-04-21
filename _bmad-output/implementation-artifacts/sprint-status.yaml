@@ -46,7 +46,7 @@ development_status:
   epic-1: in-progress
   1-1-initialize-monorepo-scaffolding-and-project-structure: done
   1-2-docker-containerization-and-cold-start: done
-  1-3-database-schema-and-repository-abstraction: review
+  1-3-database-schema-and-repository-abstraction: done
   1-4-todo-rest-api-routes-with-input-validation: ready-for-dev
   1-5-github-actions-ci-pipeline: ready-for-dev
   epic-1-retrospective: optional

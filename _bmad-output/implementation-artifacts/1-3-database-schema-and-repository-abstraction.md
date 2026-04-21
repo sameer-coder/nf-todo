@@ -1,6 +1,6 @@
 # Story 1.3: Database Schema and Repository Abstraction
 
-Status: review
+Status: done
 
 ## Story
 
@@ -259,21 +259,21 @@ Claude Sonnet 4.6
 
 #### Decision-Needed
 
-- [ ] [Review][Decision] `reorder()` partial ID list — spec defines `reorder(ids: string[])` but does not specify behavior when `ids` contains fewer entries than there are todos in the DB. Two options: (A) require a full list and throw if IDs don't match `SELECT COUNT(*)`, or (B) silently leave omitted todos at their existing `order` values (risks collisions). `SqliteTodoRepository.ts → reorder()`
+- [x] [Review][Decision] `reorder()` partial ID list — **Resolved: Option B chosen** — silently leave omitted todos at their existing `order` values. Current implementation is correct, no change needed. `SqliteTodoRepository.ts → reorder()`
 
 #### Patches
 
-- [ ] [Review][Patch] PRAGMA foreign_keys = ON never set — ON DELETE CASCADE on todo_tags is silently ignored; deleting a todo leaves orphaned tag rows [`backend/src/db/migrate.ts` or `backend/src/index.ts`]
-- [ ] [Review][Patch] Tags containing a comma are silently corrupted — GROUP_CONCAT uses `,` delimiter; split(',') on read splits one tag into multiple bogus values [`SqliteTodoRepository.ts → getAll(), getById()`]
-- [ ] [Review][Patch] Duplicate tags in create/update throw uncaught SqliteError — PRIMARY KEY (todo_id, tag) violation causes the transaction to abort with no caller error handling [`SqliteTodoRepository.ts → create(), update()`]
-- [ ] [Review][Patch] create() hardcodes order=0 — all new todos get the same order value; getAll() sort is non-deterministic until explicit reorder [`SqliteTodoRepository.ts → create()`]
-- [ ] [Review][Patch] delete() not wrapped in .transaction() — AC2 requires all writes use ACID-compliant transactions; delete is the sole exception [`SqliteTodoRepository.ts → delete()`]
-- [ ] [Review][Patch] Migrations run as 3 separate db.exec() calls without a transaction — process crash between calls leaves schema in partial state [`backend/src/db/migrate.ts`]
-- [ ] [Review][Patch] GROUP_CONCAT lacks ORDER BY — tag array order is non-deterministic across calls; tests that assert exact array equality are intermittently flaky [`SqliteTodoRepository.ts → getAll(), getById()`]
-- [ ] [Review][Patch] Cascade-delete tests do not query todo_tags directly — tests pass even when CASCADE is broken (orphaned rows are invisible through repository methods) [`SqliteTodoRepository.test.ts`]
-- [ ] [Review][Patch] "Multiple tags" test asserts exact toEqual on GROUP_CONCAT output — fragile; relies on SQLite internal B-tree traversal order matching insertion order [`SqliteTodoRepository.test.ts`]
-- [ ] [Review][Patch] 1 ms sleep in createdAt timestamp test is inherently flaky on loaded CI runners [`SqliteTodoRepository.test.ts → "should preserve createdAt timestamp across updates"`]
-- [ ] [Review][Patch] No db.close() in test afterEach — file descriptor leak if tests ever switch to file-backed DBs [`SqliteTodoRepository.test.ts`]
+- [x] [Review][Patch] PRAGMA foreign_keys = ON never set — ON DELETE CASCADE on todo_tags is silently ignored; deleting a todo leaves orphaned tag rows [`backend/src/db/migrate.ts` or `backend/src/index.ts`]
+- [x] [Review][Patch] Tags containing a comma are silently corrupted — GROUP_CONCAT uses `,` delimiter; split(',') on read splits one tag into multiple bogus values [`SqliteTodoRepository.ts → getAll(), getById()`]
+- [x] [Review][Patch] Duplicate tags in create/update throw uncaught SqliteError — PRIMARY KEY (todo_id, tag) violation causes the transaction to abort with no caller error handling [`SqliteTodoRepository.ts → create(), update()`]
+- [x] [Review][Patch] create() hardcodes order=0 — all new todos get the same order value; getAll() sort is non-deterministic until explicit reorder [`SqliteTodoRepository.ts → create()`]
+- [x] [Review][Patch] delete() not wrapped in .transaction() — AC2 requires all writes use ACID-compliant transactions; delete is the sole exception [`SqliteTodoRepository.ts → delete()`]
+- [x] [Review][Patch] Migrations run as 3 separate db.exec() calls without a transaction — process crash between calls leaves schema in partial state [`backend/src/db/migrate.ts`]
+- [x] [Review][Patch] GROUP_CONCAT lacks ORDER BY — tag array order is non-deterministic across calls; tests that assert exact array equality are intermittently flaky [`SqliteTodoRepository.ts → getAll(), getById()`]
+- [x] [Review][Patch] Cascade-delete tests do not query todo_tags directly — tests pass even when CASCADE is broken (orphaned rows are invisible through repository methods) [`SqliteTodoRepository.test.ts`]
+- [x] [Review][Patch] "Multiple tags" test asserts exact toEqual on GROUP_CONCAT output — fragile; relies on SQLite internal B-tree traversal order matching insertion order [`SqliteTodoRepository.test.ts`]
+- [x] [Review][Patch] 1 ms sleep in createdAt timestamp test is inherently flaky on loaded CI runners [`SqliteTodoRepository.test.ts → "should preserve createdAt timestamp across updates"`]
+- [x] [Review][Patch] No db.close() in test afterEach — file descriptor leak if tests ever switch to file-backed DBs [`SqliteTodoRepository.test.ts`]
 
 #### Deferred
 

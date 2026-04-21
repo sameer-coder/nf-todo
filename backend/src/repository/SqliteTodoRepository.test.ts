@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import Database from 'better-sqlite3'
 import { runMigrations } from '../db/migrate.js'
 import { SqliteTodoRepository } from './SqliteTodoRepository.js'
@@ -15,6 +15,10 @@ describe('SqliteTodoRepository', () => {
     runMigrations(db)
     // Instantiate the repository
     repo = new SqliteTodoRepository(db)
+  })
+
+  afterEach(() => {
+    db.close()
   })
 
   it('should create a todo with tags', () => {
@@ -165,9 +169,13 @@ describe('SqliteTodoRepository', () => {
     const retrieved = repo.getById(created.id)
     expect(retrieved).toBeUndefined()
 
-    // Verify no orphaned tags exist
-    const allTodos = repo.getAll()
-    expect(allTodos).toHaveLength(0)
+    // Verify orphaned tags are actually removed from todo_tags (tests CASCADE)
+    const orphanedTags = (
+      db
+        .prepare('SELECT COUNT(*) as count FROM todo_tags WHERE todo_id = ?')
+        .get(created.id) as { count: number }
+    ).count
+    expect(orphanedTags).toBe(0)
   })
 
   it('should reorder todos and update order values', () => {
@@ -209,7 +217,7 @@ describe('SqliteTodoRepository', () => {
 
     const retrieved = repo.getById(created.id)
 
-    expect(retrieved?.tags).toEqual(tags)
+    expect(retrieved?.tags).toEqual(expect.arrayContaining(tags))
     expect(retrieved?.tags).toHaveLength(4)
   })
 
@@ -231,8 +239,8 @@ describe('SqliteTodoRepository', () => {
     const created = repo.create({ title: 'Original' })
     const originalCreatedAt = created.createdAt
 
-    // Wait a tiny bit to ensure time difference
-    await new Promise((resolve) => setTimeout(resolve, 1))
+    // Wait to ensure timestamp difference is detectable at millisecond resolution
+    await new Promise((resolve) => setTimeout(resolve, 10))
 
     const updated = repo.update(created.id, {
       title: 'Modified',

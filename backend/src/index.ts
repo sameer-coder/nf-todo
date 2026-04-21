@@ -11,6 +11,7 @@ async function start() {
     // Initialize database
     const dbPath = process.env.DB_PATH ?? ':memory:'
     const db = new Database(dbPath)
+    db.pragma('foreign_keys = ON')
 
     // Run migrations to create schema
     runMigrations(db)

@@ -17,7 +17,7 @@ export class SqliteTodoRepository implements ITodoRepository {
           todos."order",
           todos.created_at,
           todos.updated_at,
-          GROUP_CONCAT(todo_tags.tag) AS tags
+          GROUP_CONCAT(todo_tags.tag, char(31)) AS tags
         FROM todos
         LEFT JOIN todo_tags ON todos.id = todo_tags.todo_id
         GROUP BY todos.id
@@ -39,7 +39,7 @@ export class SqliteTodoRepository implements ITodoRepository {
       title: row.title,
       completed: !!row.completed,
       order: row.order,
-      tags: row.tags ? row.tags.split(',') : [],
+      tags: row.tags ? row.tags.split('\x1f').sort() : [],
       createdAt: row.created_at,
       updatedAt: row.updated_at,
     }))
@@ -56,7 +56,7 @@ export class SqliteTodoRepository implements ITodoRepository {
           todos."order",
           todos.created_at,
           todos.updated_at,
-          GROUP_CONCAT(todo_tags.tag) AS tags
+          GROUP_CONCAT(todo_tags.tag, char(31)) AS tags
         FROM todos
         LEFT JOIN todo_tags ON todos.id = todo_tags.todo_id
         WHERE todos.id = ?
@@ -84,7 +84,7 @@ export class SqliteTodoRepository implements ITodoRepository {
       title: row.title,
       completed: !!row.completed,
       order: row.order,
-      tags: row.tags ? row.tags.split(',') : [],
+      tags: row.tags ? row.tags.split('\x1f').sort() : [],
       createdAt: row.created_at,
       updatedAt: row.updated_at,
     }
@@ -94,8 +94,11 @@ export class SqliteTodoRepository implements ITodoRepository {
     const id = randomUUID()
     const now = new Date().toISOString()
     const completed = 0
-    const order = 0
-    const tags = body.tags ?? []
+    const maxOrderRow = this.db
+      .prepare('SELECT COALESCE(MAX("order"), -1) AS maxOrder FROM todos')
+      .get() as { maxOrder: number }
+    const order = maxOrderRow.maxOrder + 1
+    const tags = [...new Set(body.tags ?? [])]
 
     // Wrap in transaction for atomicity
     const insertTodo = this.db.transaction(() => {
@@ -138,7 +141,7 @@ export class SqliteTodoRepository implements ITodoRepository {
 
     const now = new Date().toISOString()
     const completed = body.completed ? 1 : 0
-    const tags = body.tags ?? []
+    const tags = [...new Set(body.tags ?? [])]
 
     // Wrap in transaction for atomicity
     const updateTodo = this.db.transaction(() => {
@@ -179,8 +182,10 @@ export class SqliteTodoRepository implements ITodoRepository {
   }
 
   delete(id: string): void {
-    this.db.prepare(`DELETE FROM todos WHERE id = ?`).run(id)
-    // todo_tags is automatically cleaned up by CASCADE
+    const deleteTodo = this.db.transaction(() => {
+      this.db.prepare(`DELETE FROM todos WHERE id = ?`).run(id)
+    })
+    deleteTodo()
   }
 
   reorder(ids: string[]): void {
