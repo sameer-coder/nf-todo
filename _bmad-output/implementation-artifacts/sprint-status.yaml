@@ -34,7 +34,7 @@
 # - SM typically creates next story after previous one is 'done' to incorporate learnings
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
-generated: '2026-04-20'
+generated: '2026-04-21'
 last_updated: '2026-04-21T14:30:00Z'
 project: nf-todo
 project_key: NOKEY
@@ -43,13 +43,13 @@ story_location: _bmad-output/implementation-artifacts
 
 development_status:
   # ─── EPIC 1: Project Foundation & Infrastructure ───────────────────────────
-  epic-1: in-progress
+  epic-1: done
   1-1-initialize-monorepo-scaffolding-and-project-structure: done
   1-2-docker-containerization-and-cold-start: done
   1-3-database-schema-and-repository-abstraction: done
   1-4-todo-rest-api-routes-with-input-validation: done
   1-5-github-actions-ci-pipeline: done
-  epic-1-retrospective: optional
+  epic-1-retrospective: done
 
   # ─── EPIC 2: Core Todo Management ──────────────────────────────────────────
   epic-2: backlog

@@ -10,6 +10,7 @@ RUN npm run build
 FROM node:20-alpine AS runtime
 RUN addgroup -S app && adduser -S app -G app
 WORKDIR /app
+RUN mkdir -p /data && chown -R app:app /data
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./
