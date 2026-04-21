@@ -4,6 +4,12 @@ This file tracks issues deferred during code reviews. Items here are real but no
 
 ---
 
+## Deferred from: code review of 1-5-github-actions-ci-pipeline (2026-04-21)
+
+- No CI artifact upload for HTML reports (coverage + Playwright) — generated locally but not persisted as GitHub Actions job artifacts; failed runs require local reproduction to inspect test output. [`ci.yml`]
+
+---
+
 ## Deferred from: code review of 1-3-database-schema-and-repository-abstraction (2026-04-21)
 
 - Default `DB_PATH` falls back to `':memory:'` — server silently starts with an in-memory database if env var is missing; all data is lost on restart. Should log a warning or fail fast. [`backend/src/index.ts`]

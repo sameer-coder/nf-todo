@@ -18,9 +18,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: |
-            frontend/package-lock.json
-            backend/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Install frontend deps
         run: npm ci
@@ -75,15 +73,16 @@ jobs:
         working-directory: frontend
 
       - name: Start services
-        run: docker-compose up -d --build
+        run: docker compose up -d --build
 
       - name: Wait for backend health
         run: |
           for i in $(seq 1 30); do
-            curl -sf http://localhost:4000/api/health && echo "Backend ready" && break
+            curl -sf http://localhost:4000/api/health && echo "Backend ready" && exit 0
             echo "Waiting for backend... ($i/30)"
             sleep 3
           done
+          echo "Backend did not become healthy in time" && exit 1
 
       - name: Run Playwright E2E tests
         run: npm run test:e2e
@@ -91,4 +90,4 @@ jobs:
 
       - name: Tear down
         if: always()
-        run: docker-compose down
+        run: docker compose down
