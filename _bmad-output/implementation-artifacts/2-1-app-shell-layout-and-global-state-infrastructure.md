@@ -1,6 +1,6 @@
 # Story 2.1: App Shell, Layout, and Global State Infrastructure
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -28,51 +28,51 @@ So that all subsequent UI stories have the shared infrastructure they need to re
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Update `index.html` with Inter font preconnect (AC: 1)
-  - [ ] Add `<link rel="preconnect" href="https://fonts.googleapis.com">` and `<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>`
-  - [ ] Add `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">`
-  - [ ] Set `<title>nf-todo</title>`
+- [x] Task 1: Update `index.html` with Inter font preconnect (AC: 1)
+  - [x] Add `<link rel="preconnect" href="https://fonts.googleapis.com">` and `<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>`
+  - [x] Add `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">`
+  - [x] Set `<title>nf-todo</title>`
 
-- [ ] Task 2: Create `TodoContext.tsx` (AC: 1, 2)
-  - [ ] Define `TodoState`: `{ todos: Todo[], isLoading: boolean }`
-  - [ ] Define `TodoAction` union type with all 9 action types:
+- [x] Task 2: Create `TodoContext.tsx` (AC: 1, 2)
+  - [x] Define `TodoState`: `{ todos: Todo[], isLoading: boolean }`
+  - [x] Define `TodoAction` union type with all 9 action types:
     - `SET_TODOS`, `ADD_TODO_OPTIMISTIC`, `ADD_TODO_ROLLBACK`
     - `UPDATE_TODO_OPTIMISTIC`, `UPDATE_TODO_ROLLBACK`
     - `DELETE_TODO_OPTIMISTIC`, `DELETE_TODO_ROLLBACK`
     - `REORDER_OPTIMISTIC`, `REORDER_ROLLBACK`
-  - [ ] Implement `todoReducer` handling all action types
-  - [ ] Create `TodoContext` with `React.createContext`
-  - [ ] Create `TodoProvider` component wrapping children with the context
-  - [ ] Export `useTodos()` custom hook that reads from `TodoContext`
+  - [x] Implement `todoReducer` handling all action types
+  - [x] Create `TodoContext` with `React.createContext`
+  - [x] Create `TodoProvider` component wrapping children with the context
+  - [x] Export `useTodos()` custom hook that reads from `TodoContext`
 
-- [ ] Task 3: Create `ToastContext.tsx` (AC: 1)
-  - [ ] Define `ToastState`: `{ message: string | null }`
-  - [ ] Create `ToastContext` and `ToastProvider`
-  - [ ] Expose `showToast(message: string): void` and `clearToast(): void` from provider
-  - [ ] Export `useToast()` custom hook
+- [x] Task 3: Create `ToastContext.tsx` (AC: 1)
+  - [x] Define `ToastState`: `{ message: string | null }`
+  - [x] Create `ToastContext` and `ToastProvider`
+  - [x] Expose `showToast(message: string): void` and `clearToast(): void` from provider
+  - [x] Export `useToast()` custom hook
 
-- [ ] Task 4: Create `frontend/src/api/todos.ts` (AC: 1)
-  - [ ] Implement `fetchTodos(): Promise<Todo[]>` — `GET /api/todos`
-  - [ ] Implement `createTodo(body: CreateTodoBody): Promise<Todo>` — `POST /api/todos`
-  - [ ] Implement `updateTodo(id: string, body: UpdateTodoBody): Promise<Todo>` — `PUT /api/todos/:id`
-  - [ ] Implement `deleteTodo(id: string): Promise<void>` — `DELETE /api/todos/:id`
-  - [ ] Implement `reorderTodos(ids: string[]): Promise<void>` — `PUT /api/todos/reorder`
-  - [ ] All functions `throw` on non-2xx responses so callers can `try/catch` and show toast
+- [x] Task 4: Create `frontend/src/api/todos.ts` (AC: 1)
+  - [x] Implement `fetchTodos(): Promise<Todo[]>` — `GET /api/todos`
+  - [x] Implement `createTodo(body: CreateTodoBody): Promise<Todo>` — `POST /api/todos`
+  - [x] Implement `updateTodo(id: string, body: UpdateTodoBody): Promise<Todo>` — `PUT /api/todos/:id`
+  - [x] Implement `deleteTodo(id: string): Promise<void>` — `DELETE /api/todos/:id`
+  - [x] Implement `reorderTodos(ids: string[]): Promise<void>` — `PUT /api/todos/reorder`
+  - [x] All functions `throw` on non-2xx responses so callers can `try/catch` and show toast
 
-- [ ] Task 5: Wire `App.tsx` (AC: 1, 2)
-  - [ ] Wrap children in `<TodoProvider>` and `<ToastProvider>`
-  - [ ] On mount (`useEffect`), call `fetchTodos()`, dispatch `SET_TODOS` on success
-  - [ ] Set `isLoading: true` before fetch, `isLoading: false` after
-  - [ ] Render layout: `<main className="min-h-screen bg-white font-sans"><div className="mx-auto max-w-2xl px-4 pt-12">...</div></main>`
-  - [ ] While `isLoading`, render 3 skeleton rows
+- [x] Task 5: Wire `App.tsx` (AC: 1, 2)
+  - [x] Wrap children in `<TodoProvider>` and `<ToastProvider>`
+  - [x] On mount (`useEffect`), call `fetchTodos()`, dispatch `SET_TODOS` on success
+  - [x] Set `isLoading: true` before fetch, `isLoading: false` after
+  - [x] Render layout: `<main className="min-h-screen bg-white font-sans"><div className="mx-auto max-w-2xl px-4 pt-12">...</div></main>`
+  - [x] While `isLoading`, render 3 skeleton rows
 
-- [ ] Task 6: Implement skeleton loading rows (AC: 2)
-  - [ ] Create inline or dedicated skeleton component: 3× `<div className="h-10 bg-neutral-100 rounded animate-pulse motion-safe:animate-pulse mb-2" />`
+- [x] Task 6: Implement skeleton loading rows (AC: 2)
+  - [x] Create inline or dedicated skeleton component: 3× `<div className="h-10 bg-neutral-100 rounded animate-pulse motion-safe:animate-pulse mb-2" />`
 
-- [ ] Task 7: Write `App.test.tsx` tests
-  - [ ] Test: skeleton rows render while loading
-  - [ ] Test: `SET_TODOS` populated after fetch (mock `fetchTodos`)
-  - [ ] Test: `TodoContext` and `ToastContext` are accessible from child components
+- [x] Task 7: Write `App.test.tsx` tests
+  - [x] Test: skeleton rows render while loading
+  - [x] Test: `SET_TODOS` populated after fetch (mock `fetchTodos`)
+  - [x] Test: `TodoContext` and `ToastContext` are accessible from child components
 
 ## Dev Notes
 
@@ -181,4 +181,23 @@ Claude Sonnet 4.6
 
 ### Completion Notes List
 
+- Implemented `TodoContext.tsx` with `useReducer`, all 9 `TodoAction` types, `todoReducer`, `TodoProvider`, and `useTodos()` hook. Initial state has `isLoading: true`.
+- Implemented `ToastContext.tsx` with `ToastProvider`, `showToast`, `clearToast`, and `useToast()` hook.
+- Created `api/todos.ts` with `apiFetch` base function and all 5 API wrappers (`fetchTodos`, `createTodo`, `updateTodo`, `deleteTodo`, `reorderTodos`). All throw on non-2xx. Uses `VITE_API_URL` env var with fallback to `localhost:4000`.
+- Rewrote `App.tsx` — `AppContent` inner component uses context hooks; `useEffect` dispatches `SET_TODOS` on mount; on error dispatches `SET_TODOS` with empty array and shows toast. Layout: `min-h-screen bg-white font-sans` / `mx-auto max-w-2xl px-4 pt-12`. Renders 3 `SkeletonRow` components while `isLoading`.
+- Updated `index.html` with Inter font preconnect and stylesheet link.
+- Added file-level `/* eslint-disable react-refresh/only-export-components */` to both context files (standard pattern for context + hook co-location).
+- All 12 tests pass (9 new + 3 pre-existing). Lint clean.
+
 ### File List
+
+- `frontend/index.html` — added Inter font preconnect and stylesheet links
+- `frontend/src/App.tsx` — rewritten with providers, layout, skeleton, initial fetch
+- `frontend/src/App.test.tsx` — new; 9 tests covering skeleton, SET_TODOS, context accessibility
+- `frontend/src/context/TodoContext.tsx` — new; TodoState, TodoAction, todoReducer, TodoProvider, useTodos()
+- `frontend/src/context/ToastContext.tsx` — new; ToastState, ToastProvider, showToast, clearToast, useToast()
+- `frontend/src/api/todos.ts` — new; fetchTodos, createTodo, updateTodo, deleteTodo, reorderTodos
+
+## Change Log
+
+- 2026-04-21: Story implemented — TodoContext, ToastContext, API client, App shell with layout and skeleton loading (Agent: Claude Sonnet 4.6)

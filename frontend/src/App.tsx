@@ -1,17 +1,49 @@
-function App() {
+import { useEffect } from 'react'
+import { TodoProvider, useTodos } from './context/TodoContext'
+import { ToastProvider, useToast } from './context/ToastContext'
+import { fetchTodos } from './api/todos'
+
+function SkeletonRow() {
+  return <div className="h-10 bg-neutral-100 rounded animate-pulse motion-safe:animate-pulse mb-2" />
+}
+
+function AppContent() {
+  const { state, dispatch } = useTodos()
+  const { showToast } = useToast()
+
+  useEffect(() => {
+    fetchTodos()
+      .then(todos => dispatch({ type: 'SET_TODOS', payload: todos }))
+      .catch(() => {
+        dispatch({ type: 'SET_TODOS', payload: [] })
+        showToast('Failed to load todos')
+      })
+  }, [dispatch, showToast])
+
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-50 px-6 py-16 text-slate-900">
-      <div className="w-full max-w-2xl rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
-        <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-500">
-          Monorepo scaffold
-        </p>
-        <h1 className="mt-4 text-4xl font-semibold tracking-tight">nf-todo</h1>
-        <p className="mt-4 text-base leading-7 text-slate-600">
-          Frontend and backend foundations are now scaffolded for the upcoming todo stories.
-        </p>
+    <main className="min-h-screen bg-white font-sans">
+      <div className="mx-auto max-w-2xl px-4 pt-12">
+        {state.isLoading ? (
+          <>
+            <SkeletonRow />
+            <SkeletonRow />
+            <SkeletonRow />
+          </>
+        ) : null}
       </div>
     </main>
   )
 }
 
+function App() {
+  return (
+    <TodoProvider>
+      <ToastProvider>
+        <AppContent />
+      </ToastProvider>
+    </TodoProvider>
+  )
+}
+
 export default App
+
