@@ -51,7 +51,7 @@ describe('App', () => {
     vi.spyOn(todosApi, 'fetchTodos').mockRejectedValue(new Error('network error'))
     render(<App />)
 
-    expect((await screen.findByRole('alert')).textContent).toBe('Failed to load todos')
+    expect((await screen.findByRole('status')).textContent).toBe('Failed to load todos')
   })
 })
 

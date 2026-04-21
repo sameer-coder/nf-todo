@@ -1,6 +1,6 @@
 # Story 2.5: Empty State and Toast Error Notification
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -35,44 +35,44 @@ So that I always understand what the app is showing me and errors never disrupt 
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `EmptyState.tsx` component (AC: 1)
-  - [ ] Props: `variant: 'empty' | 'no-results'` (future-proofed for Story 4.4; default to `'empty'`)
-  - [ ] For `'empty'` variant: render `"No todos yet."` with no action
-  - [ ] Styling: `flex flex-col items-center justify-center py-16 text-neutral-400 text-sm`
-  - [ ] For `'no-results'` variant (prepare stub): `"No todos match your filters."` with a "Clear filters" button (full implementation in Story 4.4)
+- [x] Task 1: Create `EmptyState.tsx` component (AC: 1)
+  - [x] Props: `variant: 'empty' | 'no-results'` (future-proofed for Story 4.4; default to `'empty'`)
+  - [x] For `'empty'` variant: render `"No todos yet."` with no action
+  - [x] Styling: `flex flex-col items-center justify-center py-16 text-neutral-400 text-sm`
+  - [x] For `'no-results'` variant (prepare stub): `"No todos match your filters."` with a "Clear filters" button (full implementation in Story 4.4)
 
-- [ ] Task 2: Create `Toast.tsx` component (AC: 2, 3)
-  - [ ] Consumes `useToast()` — reads `message` and `clearToast`
-  - [ ] When `message` is non-null, render a fixed toast at `fixed bottom-4 right-4 z-50`
-  - [ ] Styling: `bg-white border border-neutral-200 rounded-lg px-4 py-3 text-sm text-neutral-700 shadow-sm`
-  - [ ] ARIA: `role="status" aria-live="polite"`
-  - [ ] Entry animation: `motion-safe:animate-in motion-safe:slide-in-from-bottom-2 motion-safe:fade-in`
-  - [ ] Auto-dismiss: `useEffect` sets `setTimeout(() => clearToast(), 4000)` when `message` becomes non-null
-  - [ ] Cancel timer on cleanup: return `clearTimeout(timerId)` from effect
-  - [ ] Render `Toast` at app root level (in `App.tsx`) so it overlays everything
+- [x] Task 2: Create `Toast.tsx` component (AC: 2, 3)
+  - [x] Consumes `useToast()` — reads `message` and `clearToast`
+  - [x] When `message` is non-null, render a fixed toast at `fixed bottom-4 right-4 z-50`
+  - [x] Styling: `bg-white border border-neutral-200 rounded-lg px-4 py-3 text-sm text-neutral-700 shadow-sm`
+  - [x] ARIA: `role="status" aria-live="polite"`
+  - [x] Entry animation: `motion-safe:animate-in motion-safe:slide-in-from-bottom-2 motion-safe:fade-in`
+  - [x] Auto-dismiss: `useEffect` sets `setTimeout(() => clearToast(), 4000)` when `message` becomes non-null
+  - [x] Cancel timer on cleanup: return `clearTimeout(timerId)` from effect
+  - [x] Render `Toast` at app root level (in `App.tsx`) so it overlays everything
 
-- [ ] Task 3: Wire `EmptyState` in the todo list (AC: 1)
-  - [ ] In `App.tsx` / `TodoList`: when `!isLoading && todos.length === 0`, render `<EmptyState variant="empty" />`
-  - [ ] Do NOT show `EmptyState` while `isLoading` is true (skeleton rows show instead)
+- [x] Task 3: Wire `EmptyState` in the todo list (AC: 1)
+  - [x] In `App.tsx` / `TodoList`: when `!isLoading && todos.length === 0`, render `<EmptyState variant="empty" />`
+  - [x] Do NOT show `EmptyState` while `isLoading` is true (skeleton rows show instead)
 
-- [ ] Task 4: Wire `Toast` in `App.tsx` (AC: 2)
-  - [ ] Render `<Toast />` inside `App.tsx` at the layout root (outside the content column — it's fixed positioned)
-  - [ ] `Toast` renders `null` when `message` is `null`
+- [x] Task 4: Wire `Toast` in `App.tsx` (AC: 2)
+  - [x] Render `<Toast />` inside `App.tsx` at the layout root (outside the content column — it's fixed positioned)
+  - [x] `Toast` renders `null` when `message` is `null`
 
-- [ ] Task 5: Add `tailwindcss-animate` for entry animations (AC: 2)
-  - [ ] Install `tailwindcss-animate` package: `npm install tailwindcss-animate`
-  - [ ] Add to `tailwind.config.js` plugins: `require('tailwindcss-animate')`
-  - [ ] This enables `animate-in`, `slide-in-from-bottom-2`, `fade-in` utilities
+- [x] Task 5: Add `tailwindcss-animate` for entry animations (AC: 2)
+  - [x] Install `tailwindcss-animate` package: `npm install tailwindcss-animate`
+  - [x] Add to `tailwind.config.js` plugins: `require('tailwindcss-animate')`
+  - [x] This enables `animate-in`, `slide-in-from-bottom-2`, `fade-in` utilities
 
-- [ ] Task 6: Write `EmptyState.test.tsx` tests (AC: 1)
-  - [ ] Test: renders "No todos yet." when `variant="empty"`
-  - [ ] Test: no action button in `variant="empty"`
+- [x] Task 6: Write `EmptyState.test.tsx` tests (AC: 1)
+  - [x] Test: renders "No todos yet." when `variant="empty"`
+  - [x] Test: no action button in `variant="empty"`
 
-- [ ] Task 7: Write `Toast.test.tsx` tests (AC: 2)
-  - [ ] Test: renders nothing when `message` is `null`
-  - [ ] Test: renders message text when `message` is non-null
-  - [ ] Test: has `role="status"` and `aria-live="polite"`
-  - [ ] Test: `clearToast` called after 4 seconds (use fake timers)
+- [x] Task 7: Write `Toast.test.tsx` tests (AC: 2)
+  - [x] Test: renders nothing when `message` is `null`
+  - [x] Test: renders message text when `message` is non-null
+  - [x] Test: has `role="status"` and `aria-live="polite"`
+  - [x] Test: `clearToast` called after 4 seconds (use fake timers)
 
 ## Dev Notes
 
@@ -186,4 +186,26 @@ Claude Sonnet 4.6
 
 ### Completion Notes List
 
+- Created EmptyState component with 'empty' and 'no-results' variants (no-results prepared for Story 4.4)
+- Created Toast component with role="status", aria-live="polite", 4s auto-dismiss, motion-safe entry animation
+- Replaced inline ToastViewport in App.tsx with dedicated Toast component (updated role from alert→status, timing 3s→4s)
+- Wired EmptyState in TodoList — shown when !isLoading && todos.length === 0
+- Installed tailwindcss-animate plugin for animate-in/slide-in/fade-in utilities
+- 4 EmptyState tests, 4 Toast tests — all passing, 48 total frontend tests with zero regressions
+- Backend test failures are pre-existing (better-sqlite3 native bindings issue), unrelated to these changes
+
+### Change Log
+
+- 2026-04-21: Implemented Story 2-5 — EmptyState, Toast, tailwindcss-animate, unit tests
+
 ### File List
+
+- frontend/src/components/EmptyState.tsx (new)
+- frontend/src/components/EmptyState.test.tsx (new)
+- frontend/src/components/Toast.tsx (new)
+- frontend/src/components/Toast.test.tsx (new)
+- frontend/src/components/TodoList.tsx (modified)
+- frontend/src/App.tsx (modified — replaced inline ToastViewport with Toast component)
+- frontend/src/App.test.tsx (modified — updated toast role from alert to status)
+- frontend/tailwind.config.js (modified — added tailwindcss-animate plugin)
+- frontend/package.json (modified — added tailwindcss-animate dependency)

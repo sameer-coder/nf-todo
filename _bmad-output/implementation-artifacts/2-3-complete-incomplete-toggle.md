@@ -1,6 +1,6 @@
 # Story 2.3: Complete/Incomplete Toggle
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -30,28 +30,28 @@ So that I can track what I've done and what still needs attention.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `Checkbox.tsx` component (AC: 1, 2, 3)
-  - [ ] Element: `<button type="button" role="checkbox">`
-  - [ ] Props: `checked: boolean`, `onChange: () => void`
-  - [ ] `aria-checked={checked}`, `aria-label="Mark complete"`
-  - [ ] Touch target: `w-11 h-11 flex items-center justify-center` (≥44×44px per UX-DR13)
-  - [ ] Visual: when `checked` — inner square/circle `bg-indigo-600 rounded`; unchecked — `border-2 border-neutral-300 rounded bg-transparent`
-  - [ ] Focus ring: `focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2`
-  - [ ] Call `onChange()` on click
+- [x] Task 1: Create `Checkbox.tsx` component (AC: 1, 2, 3)
+  - [x] Element: `<button type="button" role="checkbox">`
+  - [x] Props: `checked: boolean`, `onChange: () => void`
+  - [x] `aria-checked={checked}`, `aria-label="Mark complete"`
+  - [x] Touch target: `w-11 h-11 flex items-center justify-center` (≥44×44px per UX-DR13)
+  - [x] Visual: when `checked` — inner square/circle `bg-indigo-600 rounded`; unchecked — `border-2 border-neutral-300 rounded bg-transparent`
+  - [x] Focus ring: `focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2`
+  - [x] Call `onChange()` on click
 
-- [ ] Task 2: Wire `Checkbox` in `TodoItem.tsx` with optimistic toggle (AC: 1, 2)
-  - [ ] Import `Checkbox` into `TodoItem.tsx`
-  - [ ] `handleToggle` function: snapshot `previousTodo`, dispatch `UPDATE_TODO_OPTIMISTIC` with `completed: !todo.completed`, call `updateTodo(todo.id, { ...todo, completed: !todo.completed })`, on error dispatch `UPDATE_TODO_ROLLBACK` + `showToast`
-  - [ ] Pass `checked={todo.completed}` and `onChange={handleToggle}` to `Checkbox`
-  - [ ] Ensure title span `line-through text-neutral-400` is toggled based on `todo.completed` (from Story 2.2)
+- [x] Task 2: Wire `Checkbox` in `TodoItem.tsx` with optimistic toggle (AC: 1, 2)
+  - [x] Import `Checkbox` into `TodoItem.tsx`
+  - [x] `handleToggle` function: snapshot `previousTodo`, dispatch `UPDATE_TODO_OPTIMISTIC` with `completed: !todo.completed`, call `updateTodo(todo.id, { ...todo, completed: !todo.completed })`, on error dispatch `UPDATE_TODO_ROLLBACK` + `showToast`
+  - [x] Pass `checked={todo.completed}` and `onChange={handleToggle}` to `Checkbox`
+  - [x] Ensure title span `line-through text-neutral-400` is toggled based on `todo.completed` (from Story 2.2)
 
-- [ ] Task 3: Write `Checkbox.test.tsx` co-located tests (AC: 3)
-  - [ ] Test: renders with `role="checkbox"` attribute
-  - [ ] Test: `aria-checked="false"` when `checked={false}`
-  - [ ] Test: `aria-checked="true"` when `checked={true}`
-  - [ ] Test: `onChange` called once on click
-  - [ ] Test: visual class `bg-indigo-600` present when checked
-  - [ ] Test: focus-visible ring classes present
+- [x] Task 3: Write `Checkbox.test.tsx` co-located tests (AC: 3)
+  - [x] Test: renders with `role="checkbox"` attribute
+  - [x] Test: `aria-checked="false"` when `checked={false}`
+  - [x] Test: `aria-checked="true"` when `checked={true}`
+  - [x] Test: `onChange` called once on click
+  - [x] Test: visual class `bg-indigo-600` present when checked
+  - [x] Test: focus-visible ring classes present
 
 ## Dev Notes
 
@@ -145,4 +145,17 @@ Claude Sonnet 4.6
 
 ### Completion Notes List
 
+- Created Checkbox component with full ARIA accessibility (role, aria-checked, aria-label)
+- Wired optimistic toggle pattern in TodoItem with rollback + toast on error
+- 8 unit tests for Checkbox, 6 for TodoItem — all passing, zero regressions across 34 total frontend tests
+
+### Change Log
+
+- 2026-04-21: Implemented Story 2-3 — Checkbox component, optimistic toggle, unit tests
+
 ### File List
+
+- frontend/src/components/Checkbox.tsx (new)
+- frontend/src/components/Checkbox.test.tsx (new)
+- frontend/src/components/TodoItem.tsx (modified)
+- frontend/src/components/TodoItem.test.tsx (modified)
