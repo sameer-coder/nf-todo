@@ -2,6 +2,8 @@ import { useEffect } from 'react'
 import { TodoProvider, useTodos } from './context/TodoContext'
 import { ToastProvider, useToast } from './context/ToastContext'
 import { fetchTodos } from './api/todos'
+import { AddTodoInput } from './components/AddTodoInput'
+import { TodoList } from './components/TodoList'
 
 function SkeletonRow() {
   return <div className="h-10 bg-neutral-100 rounded animate-pulse motion-safe:animate-pulse mb-2" />
@@ -29,7 +31,12 @@ function AppContent() {
             <SkeletonRow />
             <SkeletonRow />
           </>
-        ) : null}
+        ) : (
+          <>
+            <AddTodoInput />
+            <TodoList />
+          </>
+        )}
       </div>
     </main>
   )

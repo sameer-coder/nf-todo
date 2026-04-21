@@ -54,7 +54,7 @@ development_status:
   # ─── EPIC 2: Core Todo Management ──────────────────────────────────────────
   epic-2: in-progress
   2-1-app-shell-layout-and-global-state-infrastructure: review
-  2-2-add-todo-input-and-todo-list-display: ready-for-dev
+  2-2-add-todo-input-and-todo-list-display: review
   2-3-complete-incomplete-toggle: ready-for-dev
   2-4-delete-todo: ready-for-dev
   2-5-empty-state-and-toast-error-notification: ready-for-dev
