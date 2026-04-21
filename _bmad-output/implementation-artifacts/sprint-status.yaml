@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: '2026-04-20'
-last_updated: '2026-04-20T09:30:00Z'
+last_updated: '2026-04-21T14:00:00Z'
 project: nf-todo
 project_key: NOKEY
 tracking_system: file-system
@@ -47,8 +47,8 @@ development_status:
   1-1-initialize-monorepo-scaffolding-and-project-structure: done
   1-2-docker-containerization-and-cold-start: done
   1-3-database-schema-and-repository-abstraction: done
-  1-4-todo-rest-api-routes-with-input-validation: ready-for-dev
-  1-5-github-actions-ci-pipeline: ready-for-dev
+  1-4-todo-rest-api-routes-with-input-validation: done
+  1-5-github-actions-ci-pipeline: in-progress
   epic-1-retrospective: optional
 
   # ─── EPIC 2: Core Todo Management ──────────────────────────────────────────

@@ -29,34 +29,34 @@ So that every push to main is automatically validated and the build fails if qua
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `.github/workflows/ci.yml` (AC: 1, 2, 3)
-  - [ ] Define job `test` with steps for both frontend and backend
-  - [ ] Add frontend steps: checkout, Node 20, `npm ci` in `./frontend`, ESLint, TypeScript check (`tsc --noEmit`), Vitest with coverage
-  - [ ] Add backend steps: `npm ci` in `./backend`, ESLint, TypeScript check (`tsc --noEmit`), Vitest with coverage
-  - [ ] Define job `e2e` with `needs: test`
-  - [ ] E2E job steps: docker-compose up --build, wait for health check, Playwright test, docker-compose down (always)
-  - [ ] Set workflow trigger: `on: push: branches: [main]` and `on: pull_request: branches: [main]`
+- [x] Task 1: Create `.github/workflows/ci.yml` (AC: 1, 2, 3)
+  - [x] Define job `test` with steps for both frontend and backend
+  - [x] Add frontend steps: checkout, Node 20, `npm ci` in `./frontend`, ESLint, TypeScript check (`tsc --noEmit`), Vitest with coverage
+  - [x] Add backend steps: `npm ci` in `./backend`, ESLint, TypeScript check (`tsc --noEmit`), Vitest with coverage
+  - [x] Define job `e2e` with `needs: test`
+  - [x] E2E job steps: docker-compose up --build, wait for health check, Playwright test, docker-compose down (always)
+  - [x] Set workflow trigger: `on: push: branches: [main]` and `on: pull_request: branches: [main]`
 
-- [ ] Task 2: Configure ESLint for frontend (AC: 1)
-  - [ ] Install `eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react eslint-plugin-react-hooks` as dev deps in `frontend/`
-  - [ ] Create `frontend/.eslintrc.cjs` with TypeScript + React rules
-  - [ ] Add `"lint": "eslint src --ext .ts,.tsx"` script to `frontend/package.json`
-  - [ ] Add `"typecheck": "tsc --noEmit"` script to `frontend/package.json`
+- [x] Task 2: Configure ESLint for frontend (AC: 1)
+  - [x] Install `eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react eslint-plugin-react-hooks` as dev deps in `frontend/`
+  - [x] Create `frontend/.eslintrc.cjs` with TypeScript + React rules
+  - [x] Add `"lint": "eslint src --ext .ts,.tsx"` script to `frontend/package.json`
+  - [x] Add `"typecheck": "tsc --noEmit"` script to `frontend/package.json`
 
-- [ ] Task 3: Configure ESLint for backend (AC: 1)
-  - [ ] Install `eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin` as dev deps in `backend/`
-  - [ ] Create `backend/.eslintrc.cjs` with TypeScript rules
-  - [ ] Add `"lint": "eslint src --ext .ts"` script to `backend/package.json`
-  - [ ] Add `"typecheck": "tsc --noEmit"` script to `backend/package.json`
+- [x] Task 3: Configure ESLint for backend (AC: 1)
+  - [x] Install `eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin` as dev deps in `backend/`
+  - [x] Create `backend/.eslintrc.cjs` with TypeScript rules
+  - [x] Add `"lint": "eslint src --ext .ts"` script to `backend/package.json`
+  - [x] Add `"typecheck": "tsc --noEmit"` script to `backend/package.json`
 
-- [ ] Task 4: Add npm scripts for CI (AC: 1)
-  - [ ] Frontend `package.json`: `"test": "vitest run"`, `"test:coverage": "vitest run --coverage"`, `"build": "vite build"`
-  - [ ] Backend `package.json`: `"test": "vitest run"`, `"test:coverage": "vitest run --coverage"`, `"build": "tsc"`
+- [x] Task 4: Add npm scripts for CI (AC: 1)
+  - [x] Frontend `package.json`: `"test": "vitest run"`, `"test:coverage": "vitest run --coverage"`, `"build": "vite build"`
+  - [x] Backend `package.json`: `"test": "vitest run"`, `"test:coverage": "vitest run --coverage"`, `"build": "tsc"`
 
-- [ ] Task 5: Configure Playwright for CI (AC: 2)
-  - [ ] Ensure `frontend/playwright.config.ts` has `use: { baseURL: 'http://localhost:3000' }` and CI-compatible settings
-  - [ ] Add `"test:e2e": "playwright test"` script to `frontend/package.json`
-  - [ ] Create `frontend/e2e/todos.spec.ts` placeholder with at least one smoke test that passes
+- [x] Task 5: Configure Playwright for CI (AC: 2)
+  - [x] Ensure `frontend/playwright.config.ts` has `use: { baseURL: 'http://localhost:3000' }` and CI-compatible settings
+  - [x] Add `"test:e2e": "playwright test"` script to `frontend/package.json`
+  - [x] Create `frontend/e2e/todos.spec.ts` placeholder with at least one smoke test that passes
 
 ## Dev Notes
 

@@ -1,6 +1,6 @@
 # Story 1.4: Todo REST API Routes with Input Validation
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -38,55 +38,55 @@ So that the frontend can perform all todo operations and malformed payloads are 
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Register `@fastify/cors` plugin in `backend/src/plugins/cors.ts` (AC: 3)
-  - [ ] Create `cors.ts` as a Fastify plugin
-  - [ ] Read `CORS_ORIGIN` from `process.env.CORS_ORIGIN` (default: `'http://localhost:3000'`)
-  - [ ] Register `@fastify/cors` with `origin: corsOrigin`
-  - [ ] Register the plugin in `server.ts` before routes
+- [x] Task 1: Register `@fastify/cors` plugin in `backend/src/plugins/cors.ts` (AC: 3)
+  - [x] Create `cors.ts` as a Fastify plugin
+  - [x] Read `CORS_ORIGIN` from `process.env.CORS_ORIGIN` (default: `'http://localhost:3000'`)
+  - [x] Register `@fastify/cors` with `origin: corsOrigin`
+  - [x] Register the plugin in `server.ts` before routes
 
-- [ ] Task 2: Implement `GET /api/todos` route (AC: 1, 4)
-  - [ ] Register Fastify JSON Schema for optional query params `tags` (string) and `status` (enum: `'all'|'active'|'completed'`)
-  - [ ] Call `repo.getAll()` — returns `Todo[]` sorted by `order`
-  - [ ] If `status=active`, filter: `todo.completed === false`
-  - [ ] If `status=completed`, filter: `todo.completed === true`
-  - [ ] If `tags` query param present, parse as comma-separated list, filter: todos where `todo.tags` includes at least one of the requested tags (OR logic)
-  - [ ] Return `200` with `Todo[]`
+- [x] Task 2: Implement `GET /api/todos` route (AC: 1, 4)
+  - [x] Register Fastify JSON Schema for optional query params `tags` (string) and `status` (enum: `'all'|'active'|'completed'`)
+  - [x] Call `repo.getAll()` — returns `Todo[]` sorted by `order`
+  - [x] If `status=active`, filter: `todo.completed === false`
+  - [x] If `status=completed`, filter: `todo.completed === true`
+  - [x] If `tags` query param present, parse as comma-separated list, filter: todos where `todo.tags` includes at least one of the requested tags (OR logic)
+  - [x] Return `200` with `Todo[]`
 
-- [ ] Task 3: Implement `POST /api/todos` route (AC: 1, 2, 4)
-  - [ ] Register Fastify JSON Schema: `{ body: { type: 'object', required: ['title'], properties: { title: { type: 'string', minLength: 1 }, tags: { type: 'array', items: { type: 'string' } } } } }`
-  - [ ] Sanitise input: trim `title` (reject 400 if empty after trim), trim each tag, deduplicate tags, remove empty tag strings
-  - [ ] Call `repo.create({ title, tags })` and return `201` with the new `Todo`
+- [x] Task 3: Implement `POST /api/todos` route (AC: 1, 2, 4)
+  - [x] Register Fastify JSON Schema: `{ body: { type: 'object', required: ['title'], properties: { title: { type: 'string', minLength: 1 }, tags: { type: 'array', items: { type: 'string' } } } } }`
+  - [x] Sanitise input: trim `title` (reject 400 if empty after trim), trim each tag, deduplicate tags, remove empty tag strings
+  - [x] Call `repo.create({ title, tags })` and return `201` with the new `Todo`
 
-- [ ] Task 4: Implement `PUT /api/todos/:id` route (AC: 1, 4)
-  - [ ] Register Fastify JSON Schema: `{ body: { type: 'object', required: ['title', 'completed', 'tags'], properties: { title: { type: 'string', minLength: 1 }, completed: { type: 'boolean' }, tags: { type: 'array', items: { type: 'string' } } } } }`
-  - [ ] Sanitise: trim `title` (400 if empty after trim), trim each tag, deduplicate, remove empty tags
-  - [ ] Call `repo.update(id, body)` — returns `404` if `undefined`
-  - [ ] Return `200` with updated `Todo`
+- [x] Task 4: Implement `PUT /api/todos/:id` route (AC: 1, 4)
+  - [x] Register Fastify JSON Schema: `{ body: { type: 'object', required: ['title', 'completed', 'tags'], properties: { title: { type: 'string', minLength: 1 }, completed: { type: 'boolean' }, tags: { type: 'array', items: { type: 'string' } } } } }`
+  - [x] Sanitise: trim `title` (400 if empty after trim), trim each tag, deduplicate, remove empty tags
+  - [x] Call `repo.update(id, body)` — returns `404` if `undefined`
+  - [x] Return `200` with updated `Todo`
 
-- [ ] Task 5: Implement `DELETE /api/todos/:id` route (AC: 1)
-  - [ ] Call `repo.getById(id)` — return `404` if not found
-  - [ ] Call `repo.delete(id)`
-  - [ ] Return `204` No Content
+- [x] Task 5: Implement `DELETE /api/todos/:id` route (AC: 1)
+  - [x] Call `repo.getById(id)` — return `404` if not found
+  - [x] Call `repo.delete(id)`
+  - [x] Return `204` No Content
 
-- [ ] Task 6: Implement `PUT /api/todos/reorder` route (AC: 1)
-  - [ ] **IMPORTANT**: Register this route BEFORE `PUT /api/todos/:id` to avoid Fastify matching `/reorder` as `:id`
-  - [ ] Register Fastify JSON Schema: `{ body: { type: 'object', required: ['ids'], properties: { ids: { type: 'array', items: { type: 'string' }, minItems: 0 } } } }`
-  - [ ] Call `repo.reorder(body.ids)`
-  - [ ] Return `204` No Content
+- [x] Task 6: Implement `PUT /api/todos/reorder` route (AC: 1)
+  - [x] **IMPORTANT**: Register this route BEFORE `PUT /api/todos/:id` to avoid Fastify matching `/reorder` as `:id`
+  - [x] Register Fastify JSON Schema: `{ body: { type: 'object', required: ['ids'], properties: { ids: { type: 'array', items: { type: 'string' }, minItems: 0 } } } }`
+  - [x] Call `repo.reorder(body.ids)`
+  - [x] Return `204` No Content
 
-- [ ] Task 7: Write integration tests in `backend/src/routes/todos.test.ts` (AC: 5)
-  - [ ] Use `buildServer({ repo })` with an in-memory `SqliteTodoRepository` (run `runMigrations` in `beforeEach`)
-  - [ ] Test `GET /api/todos`: returns sorted array, empty array when no todos
-  - [ ] Test `GET /api/todos?status=active`: filters correctly
-  - [ ] Test `GET /api/todos?status=completed`: filters correctly
-  - [ ] Test `GET /api/todos?tags=work`: returns todos with that tag
-  - [ ] Test `POST /api/todos`: 201 with correct Todo, tags parsed/stored
-  - [ ] Test `POST /api/todos` with empty title: 400
-  - [ ] Test `POST /api/todos` with whitespace-only title: 400 (after trim)
-  - [ ] Test `PUT /api/todos/:id`: 200 updated Todo, tags replaced
-  - [ ] Test `DELETE /api/todos/:id`: 204 and row removed
-  - [ ] Test `PUT /api/todos/reorder`: 204 and subsequent `GET` reflects new order
-  - [ ] Verify `tags` is always `string[]` in responses (never null)
+- [x] Task 7: Write integration tests in `backend/src/routes/todos.test.ts` (AC: 5)
+  - [x] Use `buildServer({ repo })` with an in-memory `SqliteTodoRepository` (run `runMigrations` in `beforeEach`)
+  - [x] Test `GET /api/todos`: returns sorted array, empty array when no todos
+  - [x] Test `GET /api/todos?status=active`: filters correctly
+  - [x] Test `GET /api/todos?status=completed`: filters correctly
+  - [x] Test `GET /api/todos?tags=work`: returns todos with that tag
+  - [x] Test `POST /api/todos`: 201 with correct Todo, tags parsed/stored
+  - [x] Test `POST /api/todos` with empty title: 400
+  - [x] Test `POST /api/todos` with whitespace-only title: 400 (after trim)
+  - [x] Test `PUT /api/todos/:id`: 200 updated Todo, tags replaced
+  - [x] Test `DELETE /api/todos/:id`: 204 and row removed
+  - [x] Test `PUT /api/todos/reorder`: 204 and subsequent `GET` reflects new order
+  - [x] Verify `tags` is always `string[]` in responses (never null)
 
 ## Dev Notes
 
@@ -193,4 +193,30 @@ Claude Sonnet 4.6
 
 ### Completion Notes List
 
+- Implemented all 5 REST endpoints (`GET`, `POST`, `PUT /:id`, `DELETE /:id`, `PUT /reorder`) in `backend/src/routes/todos.ts` as a single Fastify plugin.
+- `PUT /api/todos/reorder` registered before `PUT /api/todos/:id` as required by ARCH pattern to prevent Fastify treating "reorder" as `:id`.
+- CORS plugin created at `backend/src/plugins/cors.ts` using `fastify-plugin` (available as transitive dep) and registered in `server.ts` before routes.
+- Input sanitisation applied to all string inputs: `sanitiseTitle` trims and throws 400 on empty-after-trim; `sanitiseTags` trims, deduplicates, and removes empty strings.
+- JSON Schema `minLength: 1` catches truly empty titles at the schema level; manual trim check catches whitespace-only titles.
+- camelCase field names (`createdAt`, `updatedAt`) verified — mapping is in `SqliteTodoRepository` from prior story.
+- TypeScript type augmentation `declare module 'fastify'` for `FastifyInstance.repo` added in `todos.ts`.
+- All 32 tests pass (15 new route tests + 16 existing repo tests + 1 health test); 0 TypeScript errors.
+
 ### File List
+
+- `backend/src/plugins/cors.ts` (new)
+- `backend/src/routes/todos.ts` (new)
+- `backend/src/routes/todos.test.ts` (new)
+- `backend/src/server.ts` (modified)
+
+### Change Log
+
+- 2026-04-21: Implemented story 1-4 — CORS plugin, all `/api/todos` REST routes with JSON Schema validation and input sanitisation, integration tests (15 tests covering all routes and edge cases).
+
+### Review Findings
+
+- [x] [Review][Patch] Missing test: `PUT /api/todos/:id` with whitespace-only title should return 400 — `sanitiseTitle` is called on PUT but no test verifies this path, violating AC5 ("input sanitisation... is verified") [`backend/src/routes/todos.test.ts`]
+- [x] [Review][Patch] Unused variable `postRes` in status=active test — declared but value never asserted; silenced with `void postRes` which is a lint smell [`backend/src/routes/todos.test.ts`]
+- [x] [Review][Defer] Multi-tag OR filter (`GET /api/todos?tags=a,b`) has no test coverage — OR logic is implemented correctly but untested; not in spec task list [`backend/src/routes/todos.test.ts`] — deferred, pre-existing
+- [x] [Review][Defer] `?tags=a&tags=b` multi-key query parameter behaviour is undefined — schema types `tags` as `string`, multi-key submission would produce ambiguous results; out of scope for current story [`backend/src/routes/todos.ts`] — deferred, pre-existing
+- [x] [Review][Defer] `PUT /api/todos/reorder` does not validate that `ids` reference existing todos — unknown IDs silently pass to `repo.reorder()`; correctness depends on Story 1-3's implementation [`backend/src/routes/todos.ts`] — deferred, pre-existing

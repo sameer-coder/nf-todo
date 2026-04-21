@@ -7,7 +7,13 @@ This file tracks issues deferred during code reviews. Items here are real but no
 ## Deferred from: code review of 1-3-database-schema-and-repository-abstraction (2026-04-21)
 
 - Default `DB_PATH` falls back to `':memory:'` — server silently starts with an in-memory database if env var is missing; all data is lost on restart. Should log a warning or fail fast. [`backend/src/index.ts`]
-- `delete()` returns `void` — the route layer cannot distinguish a 404 (todo not found) from a successful delete. `delete()` should return a boolean or the affected row count. Actionable in story 1-4 when routes are added. [`SqliteTodoRepository.ts`]
+- `delete()` returns `void` — the route layer cannot distinguish a 404 (todo not found) from a successful delete. `delete()` should return a boolean or the affected row count. Actionable in story 1-4 when routes are added. [`SqliteTodoRepository.ts`] ~~**Resolved in Story 1-4** via `getById`-before-delete pattern~~
+
+## Deferred from: code review of 1-4-todo-rest-api-routes-with-input-validation (2026-04-21)
+
+- Multi-tag OR filter (`GET /api/todos?tags=a,b`) has no test coverage — OR logic is correctly implemented but no test exercises more than one tag; not in spec task list. [`backend/src/routes/todos.test.ts`]
+- `?tags=a&tags=b` multi-key query parameter behaviour is undefined — schema types `tags` as `string`; if a client sends duplicate keys, AJV behaviour is unpredictable. Consider restricting or documenting this. [`backend/src/routes/todos.ts`]
+- `PUT /api/todos/reorder` does not validate that `ids` reference existing todos — silently delegates to `repo.reorder()` which may produce ordering gaps if unknown IDs are passed. [`backend/src/routes/todos.ts`]
 - Invalid `PORT` env var produces `NaN` passed silently to `server.listen()` — startup validation deferred; out of scope for this story. [`backend/src/index.ts`]
 - `update()` returns a manually constructed object instead of re-fetching from DB — `order` is read before the write transaction, so a race (hypothetical in single-threaded Node.js) could return a stale value. Low practical risk; revisit if worker threads are ever adopted. [`SqliteTodoRepository.ts → update()`]
 - Empty-string tags pass through unchecked and are stored/returned — input validation belongs at the route/validation layer (story 1-4). [`SqliteTodoRepository.ts → create(), update()`]
