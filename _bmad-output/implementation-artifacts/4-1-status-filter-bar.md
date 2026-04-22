@@ -1,6 +1,6 @@
 # Story 4.1: Status Filter Bar (All / Active / Completed)
 
-Status: review
+Status: done
 
 ## Story
 
@@ -197,3 +197,7 @@ Claude Sonnet 4.6
 - frontend/src/components/StatusFilterBar.test.tsx (new)
 - frontend/src/components/TodoList.tsx (modified — accepts todos prop)
 - frontend/src/App.test.tsx (modified — MemoryRouter wrapper)
+
+### Review Findings
+
+- [x] [Review][Patch] `hasAnyFilters` truthy for invalid URL status values — `!!status` matches any non-null string including `?status=all` or garbage; causes phantom "no-results" state with no visible chips [frontend/src/App.tsx:39]

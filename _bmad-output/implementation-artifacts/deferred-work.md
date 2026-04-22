@@ -24,6 +24,10 @@ This file tracks issues deferred during code reviews. Items here are real but no
 - Missing visible keyboard focus state on clickable todo title — deferred by user to keep Story 3.1 closed without additional UI polish work. [`frontend/src/components/TodoItem.tsx`]
 - Remove-tag button does not meet the required 44×44 touch target — deferred by user to keep Story 3.4 closed without resizing the chip controls. [`frontend/src/components/TagChip.tsx`]
 
+## Deferred from: code review of stories 4-1 to 4-4 (2026-04-22)
+
+- Double-click race condition on delete button — `handleDelete` has no re-entry guard; if user clicks delete twice rapidly before component unmounts, duplicate `DELETE_TODO_OPTIMISTIC` dispatches can break rollback logic. Pre-existing issue not introduced by this diff. [`frontend/src/components/TodoItem.tsx`]
+
 ## Deferred from: code review of 1-4-todo-rest-api-routes-with-input-validation (2026-04-21)
 
 - Multi-tag OR filter (`GET /api/todos?tags=a,b`) has no test coverage — OR logic is correctly implemented but no test exercises more than one tag; not in spec task list. [`backend/src/routes/todos.test.ts`]

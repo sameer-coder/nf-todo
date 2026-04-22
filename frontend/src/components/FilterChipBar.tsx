@@ -25,7 +25,7 @@ export function FilterChipBar() {
       label: tag,
       onRemove: () =>
         setSearchParams(prev => {
-          const remaining = activeTags.filter(t => t !== tag)
+          const remaining = (prev.get('tags') ?? '').split(',').filter(Boolean).filter(t => t !== tag)
           if (remaining.length === 0) prev.delete('tags')
           else prev.set('tags', remaining.join(','))
           return prev
@@ -37,9 +37,9 @@ export function FilterChipBar() {
 
   return (
     <div className="flex flex-wrap gap-2 items-center mb-3 motion-safe:animate-in motion-safe:fade-in">
-      {activeFilters.map(filter => (
+      {activeFilters.map((filter, i) => (
         <FilterActiveChip
-          key={filter.label}
+          key={i === 0 && status ? `status:${filter.label}` : `tag:${filter.label}`}
           label={filter.label}
           onRemove={filter.onRemove}
         />

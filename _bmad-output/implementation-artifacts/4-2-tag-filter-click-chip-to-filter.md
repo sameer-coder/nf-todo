@@ -1,6 +1,6 @@
 # Story 4.2: Tag Filter — Click Chip to Filter
 
-Status: review
+Status: done
 
 ## Story
 
@@ -146,3 +146,7 @@ Claude Sonnet 4.6
 - frontend/src/hooks/useTagFilter.ts (new)
 - frontend/src/components/TodoItem.tsx (modified — added useTagFilter, wired onClick/active)
 - frontend/src/components/TagChip.test.tsx (verified — all 11 tests pass)
+
+### Review Findings
+
+- [x] [Review][Patch] Delete exit animation broken — removed `await setTimeout(250)` means `DELETE_TODO_OPTIMISTIC` fires before `animate-todo-leave` can play [frontend/src/components/TodoItem.tsx:38-42]

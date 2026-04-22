@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import { TodoItem } from './TodoItem'
@@ -85,7 +85,7 @@ describe('TodoItem', () => {
     const spy = vi.spyOn(todosApi, 'deleteTodo').mockResolvedValue(undefined)
     renderWithProviders(baseTodo)
     await user.click(screen.getByLabelText('Delete todo'))
-    expect(spy).toHaveBeenCalledWith('1')
+    await waitFor(() => expect(spy).toHaveBeenCalledWith('1'))
     spy.mockRestore()
   })
 })

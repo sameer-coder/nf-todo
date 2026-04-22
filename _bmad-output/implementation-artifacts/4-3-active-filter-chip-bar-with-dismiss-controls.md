@@ -1,6 +1,6 @@
 # Story 4.3: Active Filter Chip Bar with Dismiss Controls
 
-Status: review
+Status: done
 
 ## Story
 
@@ -155,6 +155,12 @@ Both `FilterChipBar` and `StatusFilterBar` use the same URL params. When `Filter
 Claude Sonnet 4.6
 
 ### Debug Log References
+
+### Review Findings
+
+- [x] [Review][Patch] FilterChipBar React key collision — `key={filter.label}` collides if a tag is named "Active" or "Completed"; causes wrong `onRemove` callback [frontend/src/components/FilterChipBar.tsx:41-46]
+- [x] [Review][Patch] FilterChipBar `onRemove` stale closure — computes `remaining` from render-time `activeTags` instead of reading fresh params from `prev` argument [frontend/src/components/FilterChipBar.tsx:24-33]
+- [x] [Review][Defer] Double-click race on delete — no re-entry guard in `handleDelete`, pre-existing [frontend/src/components/TodoItem.tsx] — deferred, pre-existing
 
 ### Completion Notes List
 

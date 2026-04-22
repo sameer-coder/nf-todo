@@ -36,7 +36,7 @@ function AppContent() {
     return result
   }, [state.todos, status, activeTags])
 
-  const hasAnyFilters = !!status || activeTags.length > 0
+  const hasAnyFilters = status === 'active' || status === 'completed' || activeTags.length > 0
 
   function clearAllFilters() {
     setSearchParams(new URLSearchParams())

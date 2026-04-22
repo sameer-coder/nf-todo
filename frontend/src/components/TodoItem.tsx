@@ -37,6 +37,7 @@ export function TodoItem({ todo }: TodoItemProps) {
 
   async function handleDelete() {
     setIsLeaving(true)
+    await new Promise<void>(resolve => setTimeout(resolve, 250))
     const previousTodo = todo
     dispatch({ type: 'DELETE_TODO_OPTIMISTIC', payload: todo.id })
 
