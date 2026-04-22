@@ -1,6 +1,6 @@
 # Story 5.2: Persist Reorder via API
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -29,24 +29,24 @@ So that my manually arranged list survives page refresh and container restart.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Add API call in `handleDragEnd` in `App.tsx` / `TodoList.tsx` (AC: 1)
-  - [ ] After dispatching `REORDER_OPTIMISTIC`, call `reorderTodos(reordered.map(t => t.id))`
-  - [ ] Snapshot previous order before optimistic dispatch: `const previousTodos = todos`
-  - [ ] On error: dispatch `REORDER_ROLLBACK` with `previousTodos` + `showToast('Something went wrong')`
+- [x] Task 1: Add API call in `handleDragEnd` in `App.tsx` / `TodoList.tsx` (AC: 1)
+  - [x] After dispatching `REORDER_OPTIMISTIC`, call `reorderTodos(reordered.map(t => t.id))`
+  - [x] Snapshot previous order before optimistic dispatch: `const previousTodos = todos`
+  - [x] On error: dispatch `REORDER_ROLLBACK` with `previousTodos` + `showToast('Something went wrong')`
 
-- [ ] Task 2: Verify `reorderTodos` function exists in `frontend/src/api/todos.ts` (AC: 1)
-  - [ ] `reorderTodos(ids: string[]): Promise<void>` — calls `PUT /api/todos/reorder` with `{ ids }`
-  - [ ] Function created in Story 2.1 — verify it exists and handles 204 No Content response correctly
+- [x] Task 2: Verify `reorderTodos` function exists in `frontend/src/api/todos.ts` (AC: 1)
+  - [x] `reorderTodos(ids: string[]): Promise<void>` — calls `PUT /api/todos/reorder` with `{ ids }`
+  - [x] Function created in Story 2.1 — verify it exists and handles 204 No Content response correctly
 
-- [ ] Task 3: Verify backend `PUT /api/todos/reorder` correctness (AC: 2)
-  - [ ] Implemented in Story 1.4 — verify the route assigns `order = index` for each id
-  - [ ] Verify `GET /api/todos` returns todos in new `order` after reorder
-  - [ ] Verify the order persists across backend restart (stored in SQLite, not in-memory)
+- [x] Task 3: Verify backend `PUT /api/todos/reorder` correctness (AC: 2)
+  - [x] Implemented in Story 1.4 — verify the route assigns `order = index` for each id
+  - [x] Verify `GET /api/todos` returns todos in new `order` after reorder
+  - [x] Verify the order persists across backend restart (stored in SQLite, not in-memory)
 
-- [ ] Task 4: Confirm `PointerSensor` as primary sensor (AC: 3, FR18)
-  - [ ] Verify `PointerSensor` is used in `useSensors()` (configured in Story 5.1)
-  - [ ] Per FR18: reordering must be initiated via pointer device only — `PointerSensor` covers mouse and touch pointer events
-  - [ ] `KeyboardSensor` provides accessibility for keyboard navigation but doesn't violate "pointer-only" — it's an accessibility requirement
+- [x] Task 4: Confirm `PointerSensor` as primary sensor (AC: 3, FR18)
+  - [x] Verify `PointerSensor` is used in `useSensors()` (configured in Story 5.1)
+  - [x] Per FR18: reordering must be initiated via pointer device only — `PointerSensor` covers mouse and touch pointer events
+  - [x] `KeyboardSensor` provides accessibility for keyboard navigation but doesn't violate "pointer-only" — it's an accessibility requirement
 
 ## Dev Notes
 
@@ -131,10 +131,21 @@ GET /api/todos         # returns todos in previously saved order ✓
 
 ### Agent Model Used
 
-Claude Sonnet 4.6
+Claude Opus 4.6
 
 ### Debug Log References
 
+No issues encountered. All verification tasks confirmed pre-existing implementations were correct.
+
 ### Completion Notes List
 
+- Updated `handleDragEnd` in `TodoList.tsx`: added `previousTodos` snapshot, async API call via `reorderTodos()`, and rollback + toast on error
+- Verified `reorderTodos` in `frontend/src/api/todos.ts`: correctly calls `PUT /api/todos/reorder` with `{ ids }` body, handles 204 No Content
+- Verified backend `PUT /api/todos/reorder`: assigns `order = index` in a transaction for each id, returns 204, persists in SQLite
+- Verified `PointerSensor` is primary sensor with `activationConstraint: { distance: 8 }`, `KeyboardSensor` for accessibility
+- All 108 frontend tests passing, no regressions
+
 ### File List
+
+- frontend/src/components/TodoList.tsx (modified — added async API call with rollback to handleDragEnd)
+- frontend/src/components/TodoList.test.tsx (modified — updated reorderTodos mock)

@@ -52,7 +52,7 @@ describe('App', () => {
     vi.spyOn(todosApi, 'fetchTodos').mockRejectedValue(new Error('network error'))
     render(<MemoryRouter><App /></MemoryRouter>)
 
-    expect((await screen.findByRole('status')).textContent).toBe('Failed to load todos')
+    expect(await screen.findByText('Failed to load todos')).toBeDefined()
   })
 })
 

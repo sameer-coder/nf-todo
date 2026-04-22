@@ -1,6 +1,6 @@
 # Story 5.1: Drag Handle Component and DnD Wiring
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -36,42 +36,42 @@ So that I have an explicit, unambiguous affordance for reordering that doesn't c
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `DragHandle.tsx` component (AC: 1, 4)
-  - [ ] Element: `<button type="button">` with `aria-label="Drag to reorder"`
-  - [ ] Touch target: `w-11 h-full flex items-center justify-center flex-shrink-0`
-  - [ ] Progressive disclosure: `opacity-0 group-hover:opacity-100 motion-safe:transition-opacity`
-  - [ ] Touch device override: visible at reduced opacity (not fully hidden) — `[@media(pointer:coarse)]:opacity-40`
-  - [ ] Icon: horizontal lines (≡) SVG or Heroicon `Bars3Icon`
-  - [ ] Color: `text-neutral-400`
-  - [ ] The button will receive `{...listeners}` from `useSortable` spread — see wiring step
+- [x] Task 1: Create `DragHandle.tsx` component (AC: 1, 4)
+  - [x] Element: `<button type="button">` with `aria-label="Drag to reorder"`
+  - [x] Touch target: `w-11 h-full flex items-center justify-center flex-shrink-0`
+  - [x] Progressive disclosure: `opacity-0 group-hover:opacity-100 motion-safe:transition-opacity`
+  - [x] Touch device override: visible at reduced opacity (not fully hidden) — `[@media(pointer:coarse)]:opacity-40`
+  - [x] Icon: horizontal lines (≡) SVG or Heroicon `Bars3Icon`
+  - [x] Color: `text-neutral-400`
+  - [x] The button will receive `{...listeners}` from `useSortable` spread — see wiring step
 
-- [ ] Task 2: Wire `DndContext` and `SortableContext` around the todo list (AC: 2)
-  - [ ] In `App.tsx` or a `TodoList.tsx` component, import `DndContext`, `SortableContext`, `PointerSensor`, `KeyboardSensor`, `useSensor`, `useSensors` from `@dnd-kit/core`
-  - [ ] Import `sortableKeyboardCoordinates`, `verticalListSortingStrategy` from `@dnd-kit/sortable`
-  - [ ] Configure sensors: `PointerSensor` (primary, FR18 — pointer only for DnD initiation) + `KeyboardSensor` (accessibility, AC: 4)
-  - [ ] Wrap the list with `<DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>`
-  - [ ] Wrap items with `<SortableContext items={todos.map(t => t.id)} strategy={verticalListSortingStrategy}>`
+- [x] Task 2: Wire `DndContext` and `SortableContext` around the todo list (AC: 2)
+  - [x] In `App.tsx` or a `TodoList.tsx` component, import `DndContext`, `SortableContext`, `PointerSensor`, `KeyboardSensor`, `useSensor`, `useSensors` from `@dnd-kit/core`
+  - [x] Import `sortableKeyboardCoordinates`, `verticalListSortingStrategy` from `@dnd-kit/sortable`
+  - [x] Configure sensors: `PointerSensor` (primary, FR18 — pointer only for DnD initiation) + `KeyboardSensor` (accessibility, AC: 4)
+  - [x] Wrap the list with `<DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>`
+  - [x] Wrap items with `<SortableContext items={todos.map(t => t.id)} strategy={verticalListSortingStrategy}>`
 
-- [ ] Task 3: Wire `useSortable` in `TodoItem.tsx` (AC: 2, 3)
-  - [ ] Import `useSortable` from `@dnd-kit/sortable`
-  - [ ] Call `useSortable({ id: todo.id })` — destructure `{ attributes, listeners, setNodeRef, transform, transition, isDragging }`
-  - [ ] Apply `ref={setNodeRef}`, `style={{ transform: CSS.Transform.toString(transform), transition }}` to the root `<div>` of `TodoItem`
-  - [ ] Apply `{...attributes}` to the root element
-  - [ ] Pass `listeners` down to `DragHandle` — the handle spreads them: `<button {...listeners}>`
-  - [ ] When `isDragging`: apply `shadow-md opacity-75 bg-white` to the row (AC: 3)
-  - [ ] **IMPORTANT**: Do NOT spread `listeners` onto the entire `TodoItem` row — only the `DragHandle` button activates drag initiation
+- [x] Task 3: Wire `useSortable` in `TodoItem.tsx` (AC: 2, 3)
+  - [x] Import `useSortable` from `@dnd-kit/sortable`
+  - [x] Call `useSortable({ id: todo.id })` — destructure `{ attributes, listeners, setNodeRef, transform, transition, isDragging }`
+  - [x] Apply `ref={setNodeRef}`, `style={{ transform: CSS.Transform.toString(transform), transition }}` to the root `<div>` of `TodoItem`
+  - [x] Apply `{...attributes}` to the root element
+  - [x] Pass `listeners` down to `DragHandle` — the handle spreads them: `<button {...listeners}>`
+  - [x] When `isDragging`: apply `shadow-md opacity-75 bg-white` to the row (AC: 3)
+  - [x] **IMPORTANT**: Do NOT spread `listeners` onto the entire `TodoItem` row — only the `DragHandle` button activates drag initiation
 
-- [ ] Task 4: Implement `handleDragEnd` (optimistic reorder, no persist yet — Story 5.2 persists) (AC: 2)
-  - [ ] In `handleDragEnd({ active, over })`:
+- [x] Task 4: Implement `handleDragEnd` (optimistic reorder, no persist yet — Story 5.2 persists) (AC: 2)
+  - [x] In `handleDragEnd({ active, over })`:
     - If `!over || active.id === over.id`: return (dropped in place)
     - Find `oldIndex` and `newIndex` in `todos` by id
     - Use `arrayMove` from `@dnd-kit/sortable` to compute new order
     - Dispatch `REORDER_OPTIMISTIC` with reordered array
     - (Persistence call is added in Story 5.2)
 
-- [ ] Task 5: Configure `PointerSensor` with activation constraints (AC: 2, FR18)
-  - [ ] Use `PointerSensor` with `activationConstraint: { distance: 8 }` to prevent accidental drag on click
-  - [ ] This ensures inline edit clicks and checkbox clicks don't trigger drag
+- [x] Task 5: Configure `PointerSensor` with activation constraints (AC: 2, FR18)
+  - [x] Use `PointerSensor` with `activationConstraint: { distance: 8 }` to prevent accidental drag on click
+  - [x] This ensures inline edit clicks and checkbox clicks don't trigger drag
 
 ## Dev Notes
 
@@ -174,10 +174,26 @@ The `KeyboardSensor` from @dnd-kit enables Space/Enter to pick up, arrow keys to
 
 ### Agent Model Used
 
-Claude Sonnet 4.6
+Claude Opus 4.6
 
 ### Debug Log References
 
+- DndContext's live region adds `role="status"`, conflicting with existing toast test in App.test.tsx. Fixed by switching from `findByRole('status')` to `findByText('Failed to load todos')`.
+- `useSortable` attributes add `role="button"` to `<li>` elements — accounted for in TodoList tests by using `list.querySelectorAll('li')` instead of `getAllByRole('listitem')`.
+
 ### Completion Notes List
 
+- Created `DragHandle.tsx`: button with `aria-label="Drag to reorder"`, touch target sizing, progressive disclosure via opacity, touch device override, SVG bars icon
+- Updated `TodoList.tsx`: wrapped with `DndContext` + `SortableContext`, configured `PointerSensor` (distance: 8) + `KeyboardSensor`, implemented optimistic-only `handleDragEnd` using `arrayMove`
+- Updated `TodoItem.tsx`: integrated `useSortable` hook, applied ref/style/attributes, passed listeners to DragHandle only, added isDragging styling
+- Created `DragHandle.test.tsx` (7 tests) and `TodoList.test.tsx` (4 tests)
+- Fixed regression in `App.test.tsx` caused by DndContext live region
+
 ### File List
+
+- frontend/src/components/DragHandle.tsx (new)
+- frontend/src/components/DragHandle.test.tsx (new)
+- frontend/src/components/TodoList.tsx (modified)
+- frontend/src/components/TodoList.test.tsx (new)
+- frontend/src/components/TodoItem.tsx (modified)
+- frontend/src/App.test.tsx (modified — toast test fix)

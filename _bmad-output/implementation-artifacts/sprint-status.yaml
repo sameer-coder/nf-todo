@@ -77,9 +77,9 @@ development_status:
   epic-4-retrospective: optional
 
   # ─── EPIC 5: Drag-and-Drop Reordering ──────────────────────────────────────
-  epic-5: backlog
-  5-1-drag-handle-component-and-dnd-wiring: ready-for-dev
-  5-2-persist-reorder-via-api: ready-for-dev
+  epic-5: in-progress
+  5-1-drag-handle-component-and-dnd-wiring: review
+  5-2-persist-reorder-via-api: review
   epic-5-retrospective: optional
 
   # ─── EPIC 6: E2E Test Suite & Documentation ────────────────────────────────
