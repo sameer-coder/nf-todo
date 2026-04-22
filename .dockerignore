@@ -1,0 +1,12 @@
+# Ignore everything by default, then whitelist what Docker builds need
+**/.git
+**/.gitignore
+**/node_modules
+**/dist
+**/coverage
+**/playwright-report
+**/test-results
+**/*.log
+_bmad
+_bmad-output
+docs

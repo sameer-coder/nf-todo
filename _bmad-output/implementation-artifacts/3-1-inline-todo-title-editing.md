@@ -1,6 +1,6 @@
 # Story 3.1: Inline Todo Title Editing
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -36,30 +36,30 @@ So that I can correct or update a task without any modal or separate form.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `InlineEditInput.tsx` component (AC: 1, 2, 3, 4, 5)
-  - [ ] Props: `initialValue: string`, `onSave: (newTitle: string) => void`, `onCancel: () => void`
-  - [ ] `useRef` on the input; `useEffect` to call `inputRef.current?.select()` on mount (auto-selects text)
-  - [ ] Internal state `value` initialized to `initialValue`
-  - [ ] Use a `cancelledRef = useRef(false)` flag to prevent `onBlur` from saving after Escape
-  - [ ] `onKeyDown`: if `Enter` → trim value, if non-empty call `onSave(trimmed)`, else call `onCancel()`; if `Escape` → set `cancelledRef.current = true`, call `onCancel()`
-  - [ ] `onBlur`: if `cancelledRef.current === true` → reset flag and return (do nothing); else → trim value, if non-empty call `onSave(trimmed)`, else call `onCancel()`
-  - [ ] Input styling: `w-full bg-transparent outline-none focus:ring-1 focus:ring-indigo-300 rounded px-1 text-[15px] text-neutral-900`
+- [x] Task 1: Create `InlineEditInput.tsx` component (AC: 1, 2, 3, 4, 5)
+  - [x] Props: `initialValue: string`, `onSave: (newTitle: string) => void`, `onCancel: () => void`
+  - [x] `useRef` on the input; `useEffect` to call `inputRef.current?.select()` on mount (auto-selects text)
+  - [x] Internal state `value` initialized to `initialValue`
+  - [x] Use a `cancelledRef = useRef(false)` flag to prevent `onBlur` from saving after Escape
+  - [x] `onKeyDown`: if `Enter` → trim value, if non-empty call `onSave(trimmed)`, else call `onCancel()`; if `Escape` → set `cancelledRef.current = true`, call `onCancel()`
+  - [x] `onBlur`: if `cancelledRef.current === true` → reset flag and return (do nothing); else → trim value, if non-empty call `onSave(trimmed)`, else call `onCancel()`
+  - [x] Input styling: `w-full bg-transparent outline-none focus:ring-1 focus:ring-indigo-300 rounded px-1 text-[15px] text-neutral-900`
 
-- [ ] Task 2: Wire `InlineEditInput` in `TodoItem.tsx` (AC: 1, 2, 3)
-  - [ ] Add `isEditing: boolean` local state to `TodoItem`
-  - [ ] On title span click: set `isEditing = true` (UX-DR12: single click, not double-click)
-  - [ ] Conditionally render: `isEditing ? <InlineEditInput ...> : <span onClick={...}>{todo.title}</span>`
-  - [ ] `handleSave(newTitle)`: snapshot `previousTodo`, dispatch `UPDATE_TODO_OPTIMISTIC` with `{ ...todo, title: newTitle }`, set `isEditing = false`, call `updateTodo(todo.id, { ...todo, title: newTitle })`, on error dispatch `UPDATE_TODO_ROLLBACK` + `showToast`
-  - [ ] `handleCancel()`: set `isEditing = false` (no dispatch, restore original)
-  - [ ] Do NOT trigger edit mode on checkbox or delete button clicks (ensure click handler is only on the title span)
+- [x] Task 2: Wire `InlineEditInput` in `TodoItem.tsx` (AC: 1, 2, 3)
+  - [x] Add `isEditing: boolean` local state to `TodoItem`
+  - [x] On title span click: set `isEditing = true` (UX-DR12: single click, not double-click)
+  - [x] Conditionally render: `isEditing ? <InlineEditInput ...> : <span onClick={...}>{todo.title}</span>`
+  - [x] `handleSave(newTitle)`: snapshot `previousTodo`, dispatch `UPDATE_TODO_OPTIMISTIC` with `{ ...todo, title: newTitle }`, set `isEditing = false`, call `updateTodo(todo.id, { ...todo, title: newTitle })`, on error dispatch `UPDATE_TODO_ROLLBACK` + `showToast`
+  - [x] `handleCancel()`: set `isEditing = false` (no dispatch, restore original)
+  - [x] Do NOT trigger edit mode on checkbox or delete button clicks (ensure click handler is only on the title span)
 
-- [ ] Task 3: Write `InlineEditInput.test.tsx` co-located tests (AC: 1, 2, 3, 4, 5)
-  - [ ] Test: input auto-selects text on render
-  - [ ] Test: pressing Enter with valid text calls `onSave` with trimmed value
-  - [ ] Test: pressing Enter with empty/whitespace calls `onCancel`, not `onSave`
-  - [ ] Test: pressing Escape calls `onCancel`, not `onSave`
-  - [ ] Test: blurring with valid text calls `onSave`
-  - [ ] Test: blurring after Escape does NOT call `onSave` (Escape → blur race condition prevention)
+- [x] Task 3: Write `InlineEditInput.test.tsx` co-located tests (AC: 1, 2, 3, 4, 5)
+  - [x] Test: input auto-selects text on render
+  - [x] Test: pressing Enter with valid text calls `onSave` with trimmed value
+  - [x] Test: pressing Enter with empty/whitespace calls `onCancel`, not `onSave`
+  - [x] Test: pressing Escape calls `onCancel`, not `onSave`
+  - [x] Test: blurring with valid text calls `onSave`
+  - [x] Test: blurring after Escape does NOT call `onSave` (Escape → blur race condition prevention)
 
 ## Dev Notes
 
@@ -182,4 +182,13 @@ Claude Sonnet 4.6
 
 ### Completion Notes List
 
+- Created `InlineEditInput.tsx` with `cancelledRef` flag to solve Escape/blur race condition
+- Wired into `TodoItem.tsx` with `isEditing` state; single-click activation on title span (UX-DR12)
+- `handleSave` uses optimistic dispatch + rollback on error (ARCH-6)
+- 8 tests written and passing: auto-select, Enter/Escape/blur behaviours, trim, race condition prevention, styling
+
 ### File List
+
+- frontend/src/components/InlineEditInput.tsx (new)
+- frontend/src/components/InlineEditInput.test.tsx (new)
+- frontend/src/components/TodoItem.tsx (modified)

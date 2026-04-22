@@ -3,6 +3,7 @@ import type { Todo } from '../types/todo'
 import { useTodos } from '../context/TodoContext'
 import { useToast } from '../context/ToastContext'
 import { createTodo } from '../api/todos'
+import { parseTagsFromTitle } from '../utils/parseTagsFromTitle'
 
 export function AddTodoInput() {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -15,16 +16,18 @@ export function AddTodoInput() {
   }, [])
 
   async function handleSubmit() {
-    const trimmed = value.trim()
-    if (!trimmed) return
+    const raw = value.trim()
+    if (!raw) return
+    const { title, tags } = parseTagsFromTitle(raw)
+    if (!title) return
     const nextOrder = Math.max(...state.todos.map(todo => todo.order), -1) + 1
 
     const tempTodo: Todo = {
       id: crypto.randomUUID(),
-      title: trimmed,
+      title,
       completed: false,
       order: nextOrder,
-      tags: [],
+      tags,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     }
@@ -34,7 +37,7 @@ export function AddTodoInput() {
     inputRef.current?.focus()
 
     try {
-      const serverTodo = await createTodo({ title: trimmed, tags: [] })
+      const serverTodo = await createTodo({ title, tags })
       dispatch({ type: 'DELETE_TODO_OPTIMISTIC', payload: tempTodo.id })
       dispatch({ type: 'ADD_TODO_OPTIMISTIC', payload: serverTodo })
     } catch {

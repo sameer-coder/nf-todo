@@ -15,6 +15,10 @@ This file tracks issues deferred during code reviews. Items here are real but no
 - Default `DB_PATH` falls back to `':memory:'` — server silently starts with an in-memory database if env var is missing; all data is lost on restart. Should log a warning or fail fast. [`backend/src/index.ts`]
 - `delete()` returns `void` — the route layer cannot distinguish a 404 (todo not found) from a successful delete. `delete()` should return a boolean or the affected row count. Actionable in story 1-4 when routes are added. [`SqliteTodoRepository.ts`] ~~**Resolved in Story 1-4** via `getById`-before-delete pattern~~
 
+## Deferred from: code review of 2-3-complete-incomplete-toggle (2026-04-22)
+
+- Missing regression coverage for the completed-to-incomplete toggle path in Story 2.3 — deferred because the user asked not to update non-failing test cases. [`frontend/src/components/TodoItem.test.tsx`] 
+
 ## Deferred from: code review of 1-4-todo-rest-api-routes-with-input-validation (2026-04-21)
 
 - Multi-tag OR filter (`GET /api/todos?tags=a,b`) has no test coverage — OR logic is correctly implemented but no test exercises more than one tag; not in spec task list. [`backend/src/routes/todos.test.ts`]

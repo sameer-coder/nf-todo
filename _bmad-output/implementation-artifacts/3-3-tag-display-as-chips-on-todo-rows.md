@@ -1,6 +1,6 @@
 # Story 3.3: Tag Display as Chips on Todo Rows
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -24,26 +24,26 @@ So that I can quickly see how a task is categorized without opening any detail v
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `TagChip.tsx` component (AC: 1, 3)
-  - [ ] Props: `tag: string`, `onClick?: () => void`, `active?: boolean`
-  - [ ] Root element: `<button type="button">` (clickable for filter activation in Story 4.2)
-  - [ ] Default styling (inactive): `rounded-full px-2 py-0.5 text-xs font-medium bg-neutral-100 text-neutral-600`
-  - [ ] Active styling (Story 4.2): `bg-indigo-50 text-indigo-700 ring-1 ring-indigo-200 font-semibold` (prepare but don't wire filter yet)
-  - [ ] Focus ring: `focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2`
-  - [ ] Accessible: `aria-label={tag}` or `aria-pressed={active}` when `onClick` provided
+- [x] Task 1: Create `TagChip.tsx` component (AC: 1, 3)
+  - [x] Props: `tag: string`, `onClick?: () => void`, `active?: boolean`
+  - [x] Root element: `<button type="button">` (clickable for filter activation in Story 4.2)
+  - [x] Default styling (inactive): `rounded-full px-2 py-0.5 text-xs font-medium bg-neutral-100 text-neutral-600`
+  - [x] Active styling (Story 4.2): `bg-indigo-50 text-indigo-700 ring-1 ring-indigo-200 font-semibold` (prepare but don't wire filter yet)
+  - [x] Focus ring: `focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2`
+  - [x] Accessible: `aria-label={tag}` and `aria-pressed={active}`
 
-- [ ] Task 2: Wire `TagChip` into `TodoItem.tsx` (AC: 1, 2)
-  - [ ] After the title span, render a `<div className="flex flex-wrap gap-1 items-center">` containing `TagChip` for each tag
-  - [ ] Map over `todo.tags` — render a `TagChip` per tag
-  - [ ] If `todo.tags.length === 0` render nothing (no empty container left behind)
-  - [ ] `onClick` on each chip: pass a no-op for now (will be wired in Story 4.2 for filter activation)
+- [x] Task 2: Wire `TagChip` into `TodoItem.tsx` (AC: 1, 2)
+  - [x] After the title span, render a `<div className="flex flex-wrap gap-1 items-center">` containing `TagChip` for each tag
+  - [x] Map over `todo.tags` — render a `TagChip` per tag
+  - [x] If `todo.tags.length === 0` render nothing (no empty container left behind)
+  - [x] `onClick` on each chip: pass a no-op for now (will be wired in Story 4.2 for filter activation)
 
-- [ ] Task 3: Write `TagChip.test.tsx` co-located tests (AC: 1, 2, 3)
-  - [ ] Test: renders the tag text
-  - [ ] Test: has correct default styling classes
-  - [ ] Test: `onClick` called on click
-  - [ ] Test: focus-visible ring classes present
-  - [ ] Test: active styling classes applied when `active={true}`
+- [x] Task 3: Write `TagChip.test.tsx` co-located tests (AC: 1, 2, 3)
+  - [x] Test: renders the tag text
+  - [x] Test: has correct default styling classes
+  - [x] Test: `onClick` called on click
+  - [x] Test: focus-visible ring classes present
+  - [x] Test: active styling classes applied when `active={true}`
 
 ## Dev Notes
 
@@ -130,4 +130,13 @@ Claude Sonnet 4.6
 
 ### Completion Notes List
 
+- Created `TagChip.tsx` as a `<button>` with `aria-label`, `aria-pressed`, inactive/active styling via `cn()`
+- Wired into `TodoItem.tsx` — chips rendered after title, conditionally (only when `todo.tags.length > 0`)
+- Active state classes prepared for Story 4.2 (filter wiring)
+- 7 unit tests passing: rendering, styling, click, focus ring, active state, aria attributes
+
 ### File List
+
+- frontend/src/components/TagChip.tsx (new)
+- frontend/src/components/TagChip.test.tsx (new)
+- frontend/src/components/TodoItem.tsx (modified)
