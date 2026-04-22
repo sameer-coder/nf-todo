@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: '2026-04-21'
-last_updated: '2026-04-22T15:19:00Z'
+last_updated: '2026-04-22T15:45:00Z'
 project: nf-todo
 project_key: NOKEY
 tracking_system: file-system
@@ -77,9 +77,9 @@ development_status:
   epic-4-retrospective: optional
 
   # ─── EPIC 5: Drag-and-Drop Reordering ──────────────────────────────────────
-  epic-5: in-progress
-  5-1-drag-handle-component-and-dnd-wiring: review
-  5-2-persist-reorder-via-api: review
+  epic-5: done
+  5-1-drag-handle-component-and-dnd-wiring: done
+  5-2-persist-reorder-via-api: done
   epic-5-retrospective: optional
 
   # ─── EPIC 6: E2E Test Suite & Documentation ────────────────────────────────
