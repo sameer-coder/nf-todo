@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { DndContext, PointerSensor, KeyboardSensor, useSensor, useSensors, closestCenter, type DragEndEvent } from '@dnd-kit/core'
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable'
 import type { Todo } from '../types/todo'
@@ -13,6 +14,7 @@ interface TodoListProps {
 export function TodoList({ todos }: TodoListProps) {
   const { dispatch } = useTodos()
   const { showToast } = useToast()
+  const isReordering = useRef(false)
   const sorted = [...todos].sort((a, b) => a.order - b.order)
 
   const sensors = useSensors(
@@ -25,13 +27,14 @@ export function TodoList({ todos }: TodoListProps) {
   )
 
   async function handleDragEnd({ active, over }: DragEndEvent) {
-    if (!over || active.id === over.id) return
+    if (!over || active.id === over.id || isReordering.current) return
+    isReordering.current = true
 
     const oldIndex = sorted.findIndex(t => t.id === active.id)
     const newIndex = sorted.findIndex(t => t.id === over.id)
 
     const previousTodos = sorted
-    const reordered = arrayMove(sorted, oldIndex, newIndex)
+    const reordered = arrayMove(sorted, oldIndex, newIndex).map((t, i) => ({ ...t, order: i }))
 
     dispatch({ type: 'REORDER_OPTIMISTIC', payload: reordered })
 
@@ -40,6 +43,8 @@ export function TodoList({ todos }: TodoListProps) {
     } catch {
       dispatch({ type: 'REORDER_ROLLBACK', payload: previousTodos })
       showToast('Something went wrong')
+    } finally {
+      isReordering.current = false
     }
   }
 

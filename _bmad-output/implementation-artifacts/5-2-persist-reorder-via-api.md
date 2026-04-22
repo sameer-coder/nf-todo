@@ -1,6 +1,6 @@
 # Story 5.2: Persist Reorder via API
 
-Status: review
+Status: done
 
 ## Story
 
@@ -143,6 +143,16 @@ No issues encountered. All verification tasks confirmed pre-existing implementat
 - Verified `reorderTodos` in `frontend/src/api/todos.ts`: correctly calls `PUT /api/todos/reorder` with `{ ids }` body, handles 204 No Content
 - Verified backend `PUT /api/todos/reorder`: assigns `order = index` in a transaction for each id, returns 204, persists in SQLite
 - Verified `PointerSensor` is primary sensor with `activationConstraint: { distance: 8 }`, `KeyboardSensor` for accessibility
+
+### File List
+
+- frontend/src/components/TodoList.tsx (modified — added async API call with rollback to handleDragEnd)
+- frontend/src/components/TodoList.test.tsx (modified — updated reorderTodos mock)
+
+### Review Findings
+
+- [x] [Review][Patch] CRITICAL: Optimistic reorder visually reverts — `arrayMove` reorders the array but does not update `.order` on each todo; `TodoList` re-sorts by stale `order` values, snapping the list back. Fix: `.map((t, i) => ({ ...t, order: i }))` after `arrayMove` [TodoList.tsx:35]
+- [x] [Review][Patch] Rapid successive reorders cause state corruption — if first API call fails while second is in-flight, rollback wipes both reorders. Guard with `isReordering` ref [TodoList.tsx:28]
 - All 108 frontend tests passing, no regressions
 
 ### File List

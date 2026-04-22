@@ -1,8 +1,8 @@
-import type { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities'
+import type { DraggableSyntheticListeners } from '@dnd-kit/core'
 import { cn } from '../utils/cn'
 
 interface DragHandleProps {
-  listeners?: SyntheticListenerMap
+  listeners?: DraggableSyntheticListeners
 }
 
 export function DragHandle({ listeners }: DragHandleProps) {

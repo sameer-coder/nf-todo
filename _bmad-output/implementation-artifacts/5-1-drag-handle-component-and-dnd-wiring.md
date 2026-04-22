@@ -1,6 +1,6 @@
 # Story 5.1: Drag Handle Component and DnD Wiring
 
-Status: review
+Status: done
 
 ## Story
 
@@ -197,3 +197,7 @@ Claude Opus 4.6
 - frontend/src/components/TodoList.test.tsx (new)
 - frontend/src/components/TodoItem.tsx (modified)
 - frontend/src/App.test.tsx (modified — toast test fix)
+
+### Review Findings
+
+- [x] [Review][Patch] Private API import path for `SyntheticListenerMap` — import from `@dnd-kit/core/dist/hooks/utilities` is internal; use `DraggableSyntheticListeners` from `@dnd-kit/core` [DragHandle.tsx:1]
