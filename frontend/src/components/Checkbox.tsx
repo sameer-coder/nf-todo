@@ -15,22 +15,22 @@ export function Checkbox({ checked, onChange }: CheckboxProps) {
       onClick={onChange}
       className={cn(
         'w-11 h-11 flex items-center justify-center flex-shrink-0',
-        'focus-visible:ring-2 focus-visible:ring-paper-ink focus-visible:ring-offset-2 rounded',
+        'rounded-xl focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2',
       )}
     >
       <span
         className={cn(
-          'w-5 h-5 rounded-full border-2 flex items-center justify-center',
+          'flex h-6 w-6 items-center justify-center rounded-full border-2',
           'motion-safe:transition-colors motion-safe:duration-200',
           checked
-            ? 'bg-paper-ink border-paper-ink'
-            : 'bg-transparent border-paper-border',
+            ? 'bg-indigo-600 border-indigo-600'
+            : 'bg-transparent border-paper-border shadow-[inset_0_1px_1px_rgba(23,32,27,0.06)]',
         )}
       >
         {checked && (
           <svg
             key="checked"
-            className="w-3 h-3 text-white motion-safe:animate-check-pop"
+            className="h-3 w-3 text-white motion-safe:animate-check-pop"
             fill="none"
             viewBox="0 0 12 12"
           >

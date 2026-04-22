@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import { renderHook, act } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import App from './App'
 import { TodoProvider, useTodos } from './context/TodoContext'
 import { ToastProvider, useToast } from './context/ToastContext'
@@ -26,14 +27,14 @@ describe('App', () => {
 
   it('renders 3 skeleton rows while loading', () => {
     vi.spyOn(todosApi, 'fetchTodos').mockReturnValue(new Promise(() => {}))
-    render(<App />)
+    render(<MemoryRouter><App /></MemoryRouter>)
     const skeletons = document.querySelectorAll('.motion-safe\\:animate-pulse')
     expect(skeletons).toHaveLength(3)
   })
 
   it('populates TodoContext via SET_TODOS after fetch resolves', async () => {
     vi.spyOn(todosApi, 'fetchTodos').mockResolvedValue(mockTodos)
-    render(<App />)
+    render(<MemoryRouter><App /></MemoryRouter>)
     await waitFor(() => {
       expect(document.querySelectorAll('.animate-pulse')).toHaveLength(0)
     })
@@ -41,7 +42,7 @@ describe('App', () => {
 
   it('hides skeleton rows after todos are loaded', async () => {
     vi.spyOn(todosApi, 'fetchTodos').mockResolvedValue(mockTodos)
-    render(<App />)
+    render(<MemoryRouter><App /></MemoryRouter>)
     await waitFor(() => {
       expect(document.querySelectorAll('.animate-pulse')).toHaveLength(0)
     })
@@ -49,7 +50,7 @@ describe('App', () => {
 
   it('renders a toast when the initial fetch fails', async () => {
     vi.spyOn(todosApi, 'fetchTodos').mockRejectedValue(new Error('network error'))
-    render(<App />)
+    render(<MemoryRouter><App /></MemoryRouter>)
 
     expect((await screen.findByRole('status')).textContent).toBe('Failed to load todos')
   })
@@ -132,5 +133,72 @@ describe('ToastContext', () => {
     const { getByTestId } = render(<Child />, { wrapper: Wrapper })
     expect(getByTestId('todos-count')).toBeTruthy()
     expect(getByTestId('toast-msg').textContent).toBe('none')
+  })
+})
+
+const mixedTodos: Todo[] = [
+  { id: '1', title: 'Active work', completed: false, order: 1, tags: ['work'], createdAt: '2026-01-01T00:00:00Z', updatedAt: '2026-01-01T00:00:00Z' },
+  { id: '2', title: 'Active personal', completed: false, order: 2, tags: ['personal'], createdAt: '2026-01-01T00:00:00Z', updatedAt: '2026-01-01T00:00:00Z' },
+  { id: '3', title: 'Done work', completed: true, order: 3, tags: ['work'], createdAt: '2026-01-01T00:00:00Z', updatedAt: '2026-01-01T00:00:00Z' },
+  { id: '4', title: 'Done untagged', completed: true, order: 4, tags: [], createdAt: '2026-01-01T00:00:00Z', updatedAt: '2026-01-01T00:00:00Z' },
+]
+
+describe('Combined Filter (Story 4.4)', () => {
+  beforeEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  it('status=active + tags=work shows only active todos with that tag', async () => {
+    vi.spyOn(todosApi, 'fetchTodos').mockResolvedValue(mixedTodos)
+    render(
+      <MemoryRouter initialEntries={['/?status=active&tags=work']}>
+        <App />
+      </MemoryRouter>,
+    )
+    await waitFor(() => {
+      expect(screen.getByText('Active work')).toBeDefined()
+    })
+    expect(screen.queryByText('Active personal')).toBeNull()
+    expect(screen.queryByText('Done work')).toBeNull()
+    expect(screen.queryByText('Done untagged')).toBeNull()
+  })
+
+  it('shows "No todos match your filters." when filters match nothing', async () => {
+    vi.spyOn(todosApi, 'fetchTodos').mockResolvedValue(mixedTodos)
+    render(
+      <MemoryRouter initialEntries={['/?status=completed&tags=personal']}>
+        <App />
+      </MemoryRouter>,
+    )
+    await waitFor(() => {
+      expect(screen.getByText('No todos match your filters.')).toBeDefined()
+    })
+    expect(screen.getByRole('button', { name: 'Clear filters' })).toBeDefined()
+  })
+
+  it('shows "No todos yet." when there are zero todos (not the no-results variant)', async () => {
+    vi.spyOn(todosApi, 'fetchTodos').mockResolvedValue([])
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>,
+    )
+    await waitFor(() => {
+      expect(screen.getByText('No todos yet.')).toBeDefined()
+    })
+    expect(screen.queryByText('No todos match your filters.')).toBeNull()
+  })
+
+  it('"No todos yet." and "No todos match your filters." have different copy', async () => {
+    vi.spyOn(todosApi, 'fetchTodos').mockResolvedValue(mixedTodos)
+    render(
+      <MemoryRouter initialEntries={['/?status=completed&tags=personal']}>
+        <App />
+      </MemoryRouter>,
+    )
+    await waitFor(() => {
+      expect(screen.getByText('No todos match your filters.')).toBeDefined()
+    })
+    expect(screen.queryByText('No todos yet.')).toBeNull()
   })
 })

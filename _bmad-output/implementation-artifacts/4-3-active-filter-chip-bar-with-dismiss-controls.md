@@ -1,6 +1,6 @@
 # Story 4.3: Active Filter Chip Bar with Dismiss Controls
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -33,34 +33,34 @@ So that I know exactly what lens I'm looking through and can remove any filter i
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `FilterActiveChip.tsx` component (AC: 2, 3, 4)
-  - [ ] Props: `label: string`, `onRemove: () => void`
-  - [ ] Styling: `bg-indigo-50 text-indigo-700 ring-1 ring-indigo-200 font-semibold rounded-full px-2 py-0.5 text-xs inline-flex items-center gap-1`
-  - [ ] Dismiss button inside: `<button type="button" aria-label={`Remove filter ${label}`}>×</button>`
-  - [ ] Focus ring on dismiss button: `focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2`
-  - [ ] Touch target: ensure ≥44px on the dismiss button
+- [x] Task 1: Create `FilterActiveChip.tsx` component (AC: 2, 3, 4)
+  - [x] Props: `label: string`, `onRemove: () => void`
+  - [x] Styling: `bg-paper-ink/10 text-paper-ink ring-1 ring-paper-ink/30 font-semibold rounded-full px-2.5 py-0.5 text-xs inline-flex items-center gap-1`
+  - [x] Dismiss button inside: `<button type="button" aria-label={`Remove filter ${label}`}>×</button>`
+  - [x] Focus ring on dismiss button: `focus-visible:ring-2 focus-visible:ring-paper-ink focus-visible:ring-offset-2`
+  - [x] Touch target: ensure ≥44px on the dismiss button
 
-- [ ] Task 2: Create `FilterChipBar.tsx` component (AC: 1, 2, 3)
-  - [ ] Use `useSearchParams()` to read `status` and `tags` URL params
-  - [ ] Derive `activeFilters: Array<{ label: string, onRemove: () => void }>`:
+- [x] Task 2: Create `FilterChipBar.tsx` component (AC: 1, 2, 3)
+  - [x] Use `useSearchParams()` to read `status` and `tags` URL params
+  - [x] Derive `activeFilters: Array<{ label: string, onRemove: () => void }>`:
     - If `status` is `'active'` or `'completed'`: add filter chip `{ label: 'Active' | 'Completed', onRemove: () => remove status param }`
     - For each tag in parsed `tags` param: add `{ label: tag, onRemove: () => remove that tag from param }`
-  - [ ] If `activeFilters.length === 0`: return `null` (not rendered — AC: 1)
-  - [ ] Render: `<div className="flex flex-wrap gap-2 items-center mb-3 motion-safe:animate-in motion-safe:fade-in">` with `FilterActiveChip` per filter + "Clear all" button
-  - [ ] "Clear all" button: clears all URL query params: `setSearchParams({})` or `setSearchParams(new URLSearchParams())`
+  - [x] If `activeFilters.length === 0`: return `null` (not rendered — AC: 1)
+  - [x] Render: `<div className="flex flex-wrap gap-2 items-center mb-3 motion-safe:animate-in motion-safe:fade-in">` with `FilterActiveChip` per filter + "Clear all" button
+  - [x] "Clear all" button: clears all URL query params: `setSearchParams(new URLSearchParams())`
 
-- [ ] Task 3: Wire `FilterChipBar` in `App.tsx` (AC: 2)
-  - [ ] Render `<FilterChipBar />` between `StatusFilterBar` and the todo list
-  - [ ] `FilterChipBar` handles its own visibility (`null` when no active filters)
+- [x] Task 3: Wire `FilterChipBar` in `App.tsx` (AC: 2)
+  - [x] Render `<FilterChipBar />` between `StatusFilterBar` and the todo list
+  - [x] `FilterChipBar` handles its own visibility (`null` when no active filters)
 
-- [ ] Task 4: Write `FilterChipBar.test.tsx` tests (AC: 1, 2, 3)
-  - [ ] Test: renders `null` when no `status` or `tags` params
-  - [ ] Test: renders status chip when `?status=active`
-  - [ ] Test: renders tag chips when `?tags=work,personal`
-  - [ ] Test: clicking × on status chip removes `status` from params
-  - [ ] Test: clicking × on tag chip removes that tag from `tags` param
-  - [ ] Test: "Clear all" removes all params
-  - [ ] Use `MemoryRouter` with initial entries for URL state in tests
+- [x] Task 4: Write `FilterChipBar.test.tsx` tests (AC: 1, 2, 3)
+  - [x] Test: renders `null` when no `status` or `tags` params
+  - [x] Test: renders status chip when `?status=active`
+  - [x] Test: renders tag chips when `?tags=work,personal`
+  - [x] Test: clicking × on status chip removes `status` from params
+  - [x] Test: clicking × on tag chip removes that tag from `tags` param
+  - [x] Test: "Clear all" removes all params
+  - [x] Use `MemoryRouter` with initial entries for URL state in tests
 
 ## Dev Notes
 
@@ -158,4 +158,20 @@ Claude Sonnet 4.6
 
 ### Completion Notes List
 
+- Created `FilterActiveChip.tsx` — presentational chip with dismiss button and aria-label
+- Created `FilterChipBar.tsx` — derives active filters from URL params, renders chips + "Clear all"
+- FilterChipBar returns null when no filters active (AC: 1)
+- Wired in App.tsx between StatusFilterBar and todo list
+- 9 passing tests in FilterChipBar.test.tsx covering all ACs
+- Used paper-* theme classes consistent with project design system
+
+### Change Log
+
+- 2026-04-22: Implemented FilterActiveChip, FilterChipBar, and tests
+
 ### File List
+
+- frontend/src/components/FilterActiveChip.tsx (new)
+- frontend/src/components/FilterChipBar.tsx (new)
+- frontend/src/components/FilterChipBar.test.tsx (new)
+- frontend/src/App.tsx (modified — added FilterChipBar import and render)

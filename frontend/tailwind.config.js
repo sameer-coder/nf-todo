@@ -4,27 +4,27 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        paper: ['"Patrick Hand"', 'cursive'],
+        sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
+        paper: ['ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
       },
       colors: {
         paper: {
-          bg: '#ede8d4',
-          surface: '#fdfcf6',
-          line: '#d9ceb5',
-          border: '#c5b99e',
-          text: '#2c2518',
-          muted: '#9b8e7c',
-          ink: '#2d5096',
-          pencil: '#3d3228',
-          tag: '#ebe3d0',
-          'tag-text': '#5a4b39',
-          margin: '#f0a0a0',
-          header: '#d4c89a',
+          bg: '#f4f6f3',
+          surface: '#ffffff',
+          line: '#e8ece6',
+          border: '#d8dfd5',
+          text: '#17201b',
+          muted: '#66756a',
+          ink: '#2f6c57',
+          pencil: '#25342b',
+          tag: '#eef4ef',
+          'tag-text': '#325242',
+          margin: '#c8d4cc',
+          header: '#f7faf8',
         },
       },
       boxShadow: {
-        paper: '2px 4px 12px rgba(60,40,10,0.12), 4px 8px 32px rgba(60,40,10,0.08)',
+        paper: '0 18px 50px rgba(23, 32, 27, 0.10), 0 4px 14px rgba(23, 32, 27, 0.06)',
       },
       keyframes: {
         'todo-enter': {

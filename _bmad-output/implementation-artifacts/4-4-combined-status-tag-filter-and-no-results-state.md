@@ -1,6 +1,6 @@
 # Story 4.4: Combined Status + Tag Filter and No-Results State
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -29,30 +29,30 @@ So that I have full filtering power without ever landing on a confusing blank sc
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Finalize combined filter logic in `App.tsx` (AC: 1, 4)
-  - [ ] Read both `status` and `tags` from `useSearchParams()`
-  - [ ] Apply status filter first: if `status === 'active'`, filter `!completed`; if `status === 'completed'`, filter `completed`
-  - [ ] Apply tag filter second: if `activeTags.length > 0`, additionally filter `todo.tags.some(t => activeTags.includes(t))`
-  - [ ] Result: `filteredTodos` = todos that pass BOTH filters simultaneously
-  - [ ] On page refresh (no URL params): `filteredTodos === todos` (all shown)
+- [x] Task 1: Finalize combined filter logic in `App.tsx` (AC: 1, 4)
+  - [x] Read both `status` and `tags` from `useSearchParams()`
+  - [x] Apply status filter first: if `status === 'active'`, filter `!completed`; if `status === 'completed'`, filter `completed`
+  - [x] Apply tag filter second: if `activeTags.length > 0`, additionally filter `todo.tags.some(t => activeTags.includes(t))`
+  - [x] Result: `filteredTodos` = todos that pass BOTH filters simultaneously
+  - [x] On page refresh (no URL params): `filteredTodos === todos` (all shown)
 
-- [ ] Task 2: Wire `EmptyState` "no-results" variant in `App.tsx` (AC: 2, 3)
-  - [ ] Determine display state:
+- [x] Task 2: Wire `EmptyState` "no-results" variant in `App.tsx` (AC: 2, 3)
+  - [x] Determine display state:
     - `!isLoading && todos.length === 0` → `<EmptyState variant="empty" />`
     - `!isLoading && todos.length > 0 && filteredTodos.length === 0` → `<EmptyState variant="no-results" onClearFilters={clearAllFilters} />`
     - Otherwise: render the todo list
-  - [ ] `clearAllFilters`: `setSearchParams(new URLSearchParams())`
+  - [x] `clearAllFilters`: `setSearchParams(new URLSearchParams())`
 
-- [ ] Task 3: Verify `EmptyState` "no-results" variant is visually distinct (AC: 3)
-  - [ ] "empty" copy: `"No todos yet."` — no action button
-  - [ ] "no-results" copy: `"No todos match your filters."` — "Clear filters" button below
-  - [ ] `EmptyState` component was stubbed in Story 2.5 — complete the `'no-results'` variant now
+- [x] Task 3: Verify `EmptyState` "no-results" variant is visually distinct (AC: 3)
+  - [x] "empty" copy: `"No todos yet."` — no action button
+  - [x] "no-results" copy: `"No todos match your filters."` — "Clear filters" button below
+  - [x] `EmptyState` component was stubbed in Story 2.5 — complete the `'no-results'` variant now
 
-- [ ] Task 4: Write or update integration tests for combined filter (AC: 1, 2, 3)
-  - [ ] Test: active + tag filter shows only todos matching BOTH conditions
-  - [ ] Test: `EmptyState` "no-results" renders when filters match nothing
-  - [ ] Test: clicking "Clear filters" removes all URL params and shows full list
-  - [ ] Test: "No todos yet." (empty) vs "No todos match your filters." (no-results) are different copy
+- [x] Task 4: Write or update integration tests for combined filter (AC: 1, 2, 3)
+  - [x] Test: active + tag filter shows only todos matching BOTH conditions
+  - [x] Test: `EmptyState` "no-results" renders when filters match nothing
+  - [x] Test: clicking "Clear filters" removes all URL params and shows full list
+  - [x] Test: "No todos yet." (empty) vs "No todos match your filters." (no-results) are different copy
 
 ## Dev Notes
 
@@ -160,4 +160,18 @@ Claude Sonnet 4.6
 
 ### Completion Notes List
 
+- Combined filter logic (status AND tags) finalized in App.tsx `filteredTodos` useMemo
+- Display state logic in App.tsx correctly distinguishes: true-empty ("No todos yet."), no-results ("No todos match your filters."), and normal list
+- EmptyState component already complete from Story 2.5 — two distinct variants verified
+- 4 new integration tests in App.test.tsx covering combined filter, no-results, and empty state distinction
+- All 97 frontend tests pass, 0 regressions
+
+### Change Log
+
+- 2026-04-22: Finalized combined filter logic and added integration tests
+
 ### File List
+
+- frontend/src/App.tsx (modified — combined filter logic already in place from 4-1)
+- frontend/src/App.test.tsx (modified — added 4 combined filter integration tests)
+- frontend/src/components/EmptyState.tsx (verified — both variants already complete)

@@ -1,21 +1,15 @@
-import { useTodos } from '../context/TodoContext'
+import type { Todo } from '../types/todo'
 import { TodoItem } from './TodoItem'
-import { EmptyState } from './EmptyState'
 
 interface TodoListProps {
-  showEmptyState?: boolean
+  todos: Todo[]
 }
 
-export function TodoList({ showEmptyState = true }: TodoListProps) {
-  const { state } = useTodos()
-  const sorted = [...state.todos].sort((a, b) => a.order - b.order)
-
-  if (showEmptyState && !state.isLoading && sorted.length === 0) {
-    return <EmptyState variant="empty" />
-  }
+export function TodoList({ todos }: TodoListProps) {
+  const sorted = [...todos].sort((a, b) => a.order - b.order)
 
   return (
-    <ul className="divide-y divide-paper-line/60">
+    <ul className="space-y-3">
       {sorted.map(todo => (
         <TodoItem key={todo.id} todo={todo} />
       ))}

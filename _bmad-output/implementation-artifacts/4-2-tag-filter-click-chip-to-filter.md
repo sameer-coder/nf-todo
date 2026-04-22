@@ -1,6 +1,6 @@
 # Story 4.2: Tag Filter — Click Chip to Filter
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -28,30 +28,30 @@ So that I can instantly focus on a specific category of tasks.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Implement `useTagFilter` hook (or helper in `App.tsx`) for managing `tags` URL param (AC: 1, 2, 3)
-  - [ ] Use `useSearchParams()` to read `tags` param: parse as comma-separated string → `string[]`
-  - [ ] `addTagFilter(tag)`: add tag to array, write back as comma-separated: `setSearchParams(params => { params.set('tags', [...existing, tag].join(',')); return params; })`
-  - [ ] `removeTagFilter(tag)`: filter out tag, if empty array → delete `tags` param
-  - [ ] `toggleTagFilter(tag)`: if tag in active tags → remove; else → add
-  - [ ] `isTagActive(tag)`: returns `boolean`
+- [x] Task 1: Implement `useTagFilter` hook (or helper in `App.tsx`) for managing `tags` URL param (AC: 1, 2, 3)
+  - [x] Use `useSearchParams()` to read `tags` param: parse as comma-separated string → `string[]`
+  - [x] `addTagFilter(tag)`: add tag to array, write back as comma-separated: `setSearchParams(params => { params.set('tags', [...existing, tag].join(',')); return params; })`
+  - [x] `removeTagFilter(tag)`: filter out tag, if empty array → delete `tags` param
+  - [x] `toggleTagFilter(tag)`: if tag in active tags → remove; else → add
+  - [x] `isTagActive(tag)`: returns `boolean`
 
-- [ ] Task 2: Wire `TagChip.onClick` in `TodoItem.tsx` for filter activation (AC: 1, 3)
-  - [ ] Pass `onClick={() => toggleTagFilter(tag)}` to each `TagChip`
-  - [ ] Pass `active={isTagActive(tag)}` to each `TagChip`
-  - [ ] `TagChip` already supports `active` prop from Story 3.3 — this story wires the actual logic
+- [x] Task 2: Wire `TagChip.onClick` in `TodoItem.tsx` for filter activation (AC: 1, 3)
+  - [x] Pass `onClick={() => toggleTagFilter(tag)}` to each `TagChip`
+  - [x] Pass `active={isTagActive(tag)}` to each `TagChip`
+  - [x] `TagChip` already supports `active` prop from Story 3.3 — this story wires the actual logic
 
-- [ ] Task 3: Implement client-side tag filter logic in `App.tsx` (AC: 1, 2)
-  - [ ] Parse `activeTags: string[]` from `searchParams.get('tags')?.split(',').filter(Boolean) ?? []`
-  - [ ] Extend `filteredTodos` derivation (from Story 4.1) to also apply tag filter:
+- [x] Task 3: Implement client-side tag filter logic in `App.tsx` (AC: 1, 2)
+  - [x] Parse `activeTags: string[]` from `searchParams.get('tags')?.split(',').filter(Boolean) ?? []`
+  - [x] Extend `filteredTodos` derivation (from Story 4.1) to also apply tag filter:
     ```
     If activeTags.length > 0: filter to todos where todo.tags has at least one tag in activeTags (OR logic)
     ```
-  - [ ] This composable filter applies BOTH status and tag filters simultaneously (FR14 prep for Story 4.4)
+  - [x] This composable filter applies BOTH status and tag filters simultaneously (FR14 prep for Story 4.4)
 
-- [ ] Task 4: Update `TagChip.test.tsx` for active-state filter integration (AC: 1, 3)
-  - [ ] Test: chip renders with active styling when `active={true}`
-  - [ ] Test: chip renders with default styling when `active={false}`
-  - [ ] Test: clicking an inactive chip calls `onClick`
+- [x] Task 4: Update `TagChip.test.tsx` for active-state filter integration (AC: 1, 3)
+  - [x] Test: chip renders with active styling when `active={true}`
+  - [x] Test: chip renders with default styling when `active={false}`
+  - [x] Test: clicking an inactive chip calls `onClick`
 
 ## Dev Notes
 
@@ -132,4 +132,17 @@ Claude Sonnet 4.6
 
 ### Completion Notes List
 
+- Created `useTagFilter` hook in `frontend/src/hooks/useTagFilter.ts` with `toggleTagFilter`, `isTagActive`, `activeTags`
+- Wired `useTagFilter` in `TodoItem.tsx` — TagChip onClick triggers toggleTagFilter, active prop reflects isTagActive
+- Tag filter logic (OR across tags) already integrated in App.tsx filteredTodos from Story 4-1
+- Existing TagChip tests already cover active/inactive styling and onClick — verified all 11 pass
+
+### Change Log
+
+- 2026-04-22: Implemented useTagFilter hook and wired TagChip filter activation in TodoItem
+
 ### File List
+
+- frontend/src/hooks/useTagFilter.ts (new)
+- frontend/src/components/TodoItem.tsx (modified — added useTagFilter, wired onClick/active)
+- frontend/src/components/TagChip.test.tsx (verified — all 11 tests pass)

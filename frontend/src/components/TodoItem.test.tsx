@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { MemoryRouter } from 'react-router-dom'
 import { TodoItem } from './TodoItem'
 import { TodoProvider } from '../context/TodoContext'
 import { ToastProvider } from '../context/ToastContext'
@@ -19,13 +20,15 @@ const baseTodo: Todo = {
 
 function renderWithProviders(todo: Todo) {
   return render(
-    <TodoProvider>
-      <ToastProvider>
-        <ul>
-          <TodoItem todo={todo} />
-        </ul>
-      </ToastProvider>
-    </TodoProvider>,
+    <MemoryRouter>
+      <TodoProvider>
+        <ToastProvider>
+          <ul>
+            <TodoItem todo={todo} />
+          </ul>
+        </ToastProvider>
+      </TodoProvider>
+    </MemoryRouter>,
   )
 }
 

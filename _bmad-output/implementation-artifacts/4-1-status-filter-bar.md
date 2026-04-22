@@ -1,6 +1,6 @@
 # Story 4.1: Status Filter Bar (All / Active / Completed)
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -33,37 +33,37 @@ So that I can focus on only the tasks relevant to me at any given moment.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `StatusFilterBar.tsx` component (AC: 1, 2, 3)
-  - [ ] Use `useSearchParams()` from `react-router-dom` to read and update `status` param
-  - [ ] Render three `<button>` elements: "All", "Active", "Completed"
-  - [ ] Active tab class: `font-semibold text-neutral-900`
-  - [ ] Inactive tab class: `text-neutral-400 hover:text-neutral-600`
-  - [ ] On click "All": `setSearchParams(params => { params.delete('status'); return params; })`
-  - [ ] On click "Active": `setSearchParams(params => { params.set('status', 'active'); return params; })`
-  - [ ] On click "Completed": `setSearchParams(params => { params.set('status', 'completed'); return params; })`
-  - [ ] Determine active tab from `searchParams.get('status')` — `null` or `'all'` means "All" is active
-  - [ ] Focus ring on all buttons: `focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2`
+- [x] Task 1: Create `StatusFilterBar.tsx` component (AC: 1, 2, 3)
+  - [x] Use `useSearchParams()` from `react-router-dom` to read and update `status` param
+  - [x] Render three `<button>` elements: "All", "Active", "Completed"
+  - [x] Active tab class: `font-semibold text-paper-text`
+  - [x] Inactive tab class: `text-paper-muted hover:text-paper-pencil`
+  - [x] On click "All": `setSearchParams(params => { params.delete('status'); return params; })`
+  - [x] On click "Active": `setSearchParams(params => { params.set('status', 'active'); return params; })`
+  - [x] On click "Completed": `setSearchParams(params => { params.set('status', 'completed'); return params; })`
+  - [x] Determine active tab from `searchParams.get('status')` — `null` or `'all'` means "All" is active
+  - [x] Focus ring on all buttons: `focus-visible:ring-2 focus-visible:ring-paper-ink focus-visible:ring-offset-2`
 
-- [ ] Task 2: Implement client-side status filter logic in `App.tsx` (AC: 2, 3, 4)
-  - [ ] Read `status` from `useSearchParams()` in `App.tsx`
-  - [ ] Derive `filteredTodos` from `todos` in `TodoContext`:
+- [x] Task 2: Implement client-side status filter logic in `App.tsx` (AC: 2, 3, 4)
+  - [x] Read `status` from `useSearchParams()` in `App.tsx`
+  - [x] Derive `filteredTodos` from `todos` in `TodoContext`:
     - `status === 'active'` → `todos.filter(t => !t.completed)`
     - `status === 'completed'` → `todos.filter(t => t.completed)`
     - default (`null` or `'all'`) → `todos` (no filter)
-  - [ ] Pass `filteredTodos` to the todo list render — do NOT filter in `TodoContext` (filter is view-layer only)
-  - [ ] On page refresh: `searchParams.get('status')` returns `null` → shows all todos (FR15)
+  - [x] Pass `filteredTodos` to the todo list render — do NOT filter in `TodoContext` (filter is view-layer only)
+  - [x] On page refresh: `searchParams.get('status')` returns `null` → shows all todos (FR15)
 
-- [ ] Task 3: Wire `StatusFilterBar` in `App.tsx` (AC: 1)
-  - [ ] Render `<StatusFilterBar />` between the `AddTodoInput` and the todo list
-  - [ ] Ensure `App.tsx` is wrapped in `<BrowserRouter>` (or `<Router>`) from `react-router-dom` so `useSearchParams` works
+- [x] Task 3: Wire `StatusFilterBar` in `App.tsx` (AC: 1)
+  - [x] Render `<StatusFilterBar />` between the `AddTodoInput` and the todo list
+  - [x] Ensure `App.tsx` is wrapped in `<BrowserRouter>` (or `<Router>`) from `react-router-dom` so `useSearchParams` works
 
-- [ ] Task 4: Write `StatusFilterBar.test.tsx` co-located tests (AC: 1, 2, 3)
-  - [ ] Test: renders "All", "Active", "Completed" buttons
-  - [ ] Test: "All" tab is active by default (no `status` param)
-  - [ ] Test: clicking "Active" sets `status=active` in URL
-  - [ ] Test: clicking "Completed" sets `status=completed` in URL
-  - [ ] Test: active tab has `font-semibold` class, inactive tabs do not
-  - [ ] Use `MemoryRouter` with initial entries for testing URL state
+- [x] Task 4: Write `StatusFilterBar.test.tsx` co-located tests (AC: 1, 2, 3)
+  - [x] Test: renders "All", "Active", "Completed" buttons
+  - [x] Test: "All" tab is active by default (no `status` param)
+  - [x] Test: clicking "Active" sets `status=active` in URL
+  - [x] Test: clicking "Completed" sets `status=completed` in URL
+  - [x] Test: active tab has `font-semibold` class, inactive tabs do not
+  - [x] Use `MemoryRouter` with initial entries for testing URL state
 
 ## Dev Notes
 
@@ -176,4 +176,24 @@ Claude Sonnet 4.6
 
 ### Completion Notes List
 
+- Created `StatusFilterBar.tsx` with three tab buttons using `useSearchParams()` per ARCH-4
+- Updated `App.tsx` with `filteredTodos` derivation using `useMemo` for status + tag filtering
+- Added `BrowserRouter` wrapper in `main.tsx` for router context
+- Refactored `TodoList` to accept `todos` prop instead of reading from context directly
+- Moved empty state logic from `TodoList` into `App.tsx` for filter-aware variant switching
+- Updated `App.test.tsx` to wrap `<App />` in `<MemoryRouter>` for router context
+- 7 passing tests in `StatusFilterBar.test.tsx`
+- Adapted styling from story spec (indigo/neutral → paper-* theme) to match project design system
+
+### Change Log
+
+- 2026-04-22: Implemented StatusFilterBar, filter logic, BrowserRouter wrapping, and tests
+
 ### File List
+
+- frontend/src/main.tsx (modified — added BrowserRouter wrapper)
+- frontend/src/App.tsx (modified — added useSearchParams, filteredTodos, StatusFilterBar, EmptyState logic)
+- frontend/src/components/StatusFilterBar.tsx (new)
+- frontend/src/components/StatusFilterBar.test.tsx (new)
+- frontend/src/components/TodoList.tsx (modified — accepts todos prop)
+- frontend/src/App.test.tsx (modified — MemoryRouter wrapper)

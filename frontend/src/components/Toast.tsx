@@ -19,7 +19,7 @@ export function Toast() {
       aria-live="polite"
       className={cn(
         'fixed bottom-4 right-4 z-50',
-        'bg-paper-surface border border-paper-border rounded-sm px-4 py-3',
+        'rounded-2xl border border-paper-border bg-paper-surface/95 px-4 py-3 backdrop-blur-sm',
         'text-sm text-paper-text shadow-paper',
         'motion-safe:animate-in motion-safe:slide-in-from-bottom-2 motion-safe:fade-in',
       )}

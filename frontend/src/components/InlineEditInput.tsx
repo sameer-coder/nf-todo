@@ -44,7 +44,7 @@ export function InlineEditInput({ initialValue, onSave, onCancel }: InlineEditIn
       onChange={e => setValue(e.target.value)}
       onKeyDown={handleKeyDown}
       onBlur={handleBlur}
-      className="w-full bg-transparent outline-none focus:ring-1 focus:ring-paper-ink/40 rounded px-1 text-[15px] text-paper-text"
+      className="w-full rounded-xl border border-paper-line bg-transparent px-3 py-2 text-[15px] font-medium text-paper-text outline-none focus:ring-2 focus:ring-indigo-300 focus:ring-paper-ink/20"
     />
   )
 }

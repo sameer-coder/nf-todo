@@ -56,7 +56,7 @@ export function AddTodoInput() {
   }
 
   return (
-    <div className="border-b border-paper-line pb-3 mb-4">
+    <div className="mb-5 rounded-2xl border border-paper-line/90 bg-paper-header/70 p-2">
       <input
         ref={inputRef}
         type="text"
@@ -64,7 +64,7 @@ export function AddTodoInput() {
         onChange={e => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="Add a task…"
-        className="w-full outline-none text-[15px] text-paper-text placeholder:text-paper-muted/60 bg-transparent"
+        className="min-h-[44px] w-full rounded-xl bg-paper-surface px-4 text-[15px] text-paper-text outline-none ring-1 ring-transparent placeholder:text-paper-muted/70 motion-safe:transition-shadow focus-visible:ring-paper-ink/20 focus-visible:shadow-[0_0_0_4px_rgba(47,108,87,0.10)]"
       />
     </div>
   )

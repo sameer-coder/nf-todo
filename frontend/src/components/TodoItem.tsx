@@ -7,6 +7,7 @@ import { InlineEditInput } from './InlineEditInput'
 import { TagChip } from './TagChip'
 import { useTodos } from '../context/TodoContext'
 import { useToast } from '../context/ToastContext'
+import { useTagFilter } from '../hooks/useTagFilter'
 import { updateTodo, deleteTodo } from '../api/todos'
 
 interface TodoItemProps {
@@ -16,6 +17,7 @@ interface TodoItemProps {
 export function TodoItem({ todo }: TodoItemProps) {
   const { dispatch } = useTodos()
   const { showToast } = useToast()
+  const { toggleTagFilter, isTagActive } = useTagFilter()
   const [isEditing, setIsEditing] = useState(false)
   const [isLeaving, setIsLeaving] = useState(false)
 
@@ -35,8 +37,6 @@ export function TodoItem({ todo }: TodoItemProps) {
 
   async function handleDelete() {
     setIsLeaving(true)
-    await new Promise<void>(resolve => setTimeout(resolve, 250))
-
     const previousTodo = todo
     dispatch({ type: 'DELETE_TODO_OPTIMISTIC', payload: todo.id })
 
@@ -86,13 +86,14 @@ export function TodoItem({ todo }: TodoItemProps) {
   return (
     <li
       className={cn(
-        'flex items-center gap-3 py-3 group overflow-hidden',
+        'group overflow-hidden rounded-2xl border border-paper-line/80 bg-paper-surface px-3 py-3 shadow-sm',
+        'flex items-center gap-3',
+        'motion-safe:transition-transform motion-safe:duration-200 hover:-translate-y-0.5',
         'motion-safe:animate-todo-enter',
         isLeaving && 'motion-safe:animate-todo-leave',
       )}
     >
       <Checkbox checked={todo.completed} onChange={handleToggle} />
-      <div />
       {isEditing ? (
         <InlineEditInput
           initialValue={todo.title}
@@ -106,11 +107,11 @@ export function TodoItem({ todo }: TodoItemProps) {
           role="button"
           tabIndex={0}
           className={cn(
-            'flex-1 text-[15px] cursor-text',
+            'flex-1 cursor-text text-[15px] font-medium leading-6',
             'motion-safe:transition-colors motion-safe:duration-300',
             todo.completed
-              ? 'line-through text-paper-muted decoration-paper-muted/60'
-              : 'text-paper-text',
+              ? 'line-through text-neutral-400 decoration-paper-muted/60'
+              : 'text-neutral-900',
           )}
         >
           {todo.title}
@@ -122,13 +123,13 @@ export function TodoItem({ todo }: TodoItemProps) {
             <TagChip
               key={tag}
               tag={tag}
-              onClick={() => {/* wired in Story 4.2 */}}
+              active={isTagActive(tag)}
+              onClick={() => toggleTagFilter(tag)}
               onRemove={() => handleRemoveTag(tag)}
             />
           ))}
         </div>
       )}
-      <div />
       <DeleteButton onDelete={handleDelete} />
     </li>
   )
