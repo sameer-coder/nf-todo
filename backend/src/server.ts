@@ -8,6 +8,19 @@ export function buildServer(options: { repo: ITodoRepository }) {
     logger: true,
   })
 
+  // Allow Content-Type: application/json with an empty body (e.g. DELETE requests)
+  fastify.addContentTypeParser('application/json', { parseAs: 'string' }, (_req, body, done) => {
+    const str = body as string
+    if (!str || str.trim() === '') return done(null, null)
+    try {
+      done(null, JSON.parse(str))
+    } catch (e: unknown) {
+      const err = e as Error & { statusCode?: number }
+      err.statusCode = 400
+      done(err, undefined)
+    }
+  })
+
   // Decorate fastify with the repository for use in route handlers
   fastify.decorate('repo', options.repo)
 

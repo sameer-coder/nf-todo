@@ -16,11 +16,11 @@ export function TagChip({ tag, onClick, onRemove, active = false }: TagChipProps
         aria-pressed={active}
         aria-label={tag}
         className={cn(
-          'rounded-full px-2 py-0.5 text-xs font-medium',
-          'focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2',
+          'rounded-sm px-2 py-0.5 text-xs font-medium',
+          'focus-visible:ring-2 focus-visible:ring-paper-ink focus-visible:ring-offset-2',
           active
-            ? 'bg-indigo-50 text-indigo-700 ring-1 ring-indigo-200 font-semibold'
-            : 'bg-neutral-100 text-neutral-600',
+            ? 'bg-paper-ink/10 text-paper-ink ring-1 ring-paper-ink/30 font-semibold'
+            : 'bg-paper-tag text-paper-tag-text',
         )}
       >
         {tag}
@@ -35,8 +35,8 @@ export function TagChip({ tag, onClick, onRemove, active = false }: TagChipProps
           }}
           className={cn(
             'p-1.5 -ml-1',
-            'text-neutral-400 hover:text-neutral-600',
-            'focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 rounded-full',
+            'text-paper-muted hover:text-paper-pencil',
+            'focus-visible:ring-2 focus-visible:ring-paper-ink focus-visible:ring-offset-2 rounded-full',
           )}
         >
           <span aria-hidden="true" className="text-xs leading-none">×</span>

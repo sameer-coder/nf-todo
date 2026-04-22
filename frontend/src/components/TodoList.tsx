@@ -15,7 +15,7 @@ export function TodoList({ showEmptyState = true }: TodoListProps) {
   }
 
   return (
-    <ul className="divide-y divide-neutral-100">
+    <ul className="divide-y divide-paper-line/60">
       {sorted.map(todo => (
         <TodoItem key={todo.id} todo={todo} />
       ))}

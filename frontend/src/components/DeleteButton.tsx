@@ -17,8 +17,8 @@ export function DeleteButton({ onDelete }: DeleteButtonProps) {
         '[@media(hover:hover)_and_(pointer:fine)]:group-hover:opacity-100',
         '[@media(hover:hover)_and_(pointer:fine)]:focus-visible:opacity-100',
         'motion-safe:transition-opacity',
-        'text-neutral-400 hover:text-rose-500',
-        'focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 rounded',
+        'text-paper-muted hover:text-red-700',
+        'focus-visible:ring-2 focus-visible:ring-paper-ink focus-visible:ring-offset-2 rounded',
       )}
     >
       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

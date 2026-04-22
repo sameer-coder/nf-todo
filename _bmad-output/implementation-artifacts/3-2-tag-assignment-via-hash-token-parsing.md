@@ -1,6 +1,6 @@
 # Story 3.2: Tag Assignment via #tag Token Parsing
 
-Status: review
+Status: done
 
 ## Story
 

@@ -1,6 +1,6 @@
 # Story 3.4: Tag Removal from a Todo
 
-Status: review
+Status: done
 
 ## Story
 
@@ -50,6 +50,10 @@ So that I can keep my tags accurate without re-creating the entire todo.
   - [x] Test: clicking × calls `onRemove`, NOT the chip's own `onClick`
   - [x] Test: `aria-label="Remove tag shopping"` on × button
   - [x] Test: click propagation stopped — chip `onClick` not called when × is clicked
+
+### Review Findings
+
+- [x] [Review][Defer] Remove-tag button does not meet the required 44×44 touch target [frontend/src/components/TagChip.tsx:29] — deferred by user to keep Story 3.4 closed without resizing the chip controls
 
 ## Dev Notes
 

@@ -1,6 +1,6 @@
 # Story 3.1: Inline Todo Title Editing
 
-Status: review
+Status: done
 
 ## Story
 
@@ -60,6 +60,10 @@ So that I can correct or update a task without any modal or separate form.
   - [x] Test: pressing Escape calls `onCancel`, not `onSave`
   - [x] Test: blurring with valid text calls `onSave`
   - [x] Test: blurring after Escape does NOT call `onSave` (Escape → blur race condition prevention)
+
+### Review Findings
+
+- [x] [Review][Defer] Missing visible keyboard focus state on clickable todo title [frontend/src/components/TodoItem.tsx:93] — deferred by user to keep Story 3.1 closed without additional UI polish work
 
 ## Dev Notes
 

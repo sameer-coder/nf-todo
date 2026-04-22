@@ -61,11 +61,11 @@ development_status:
   epic-2-retrospective: optional
 
   # ─── EPIC 3: Inline Editing & Tags ─────────────────────────────────────────
-  epic-3: in-progress
-  3-1-inline-todo-title-editing: review
-  3-2-tag-assignment-via-hash-token-parsing: review
-  3-3-tag-display-as-chips-on-todo-rows: review
-  3-4-tag-removal-from-a-todo: review
+  epic-3: done
+  3-1-inline-todo-title-editing: done
+  3-2-tag-assignment-via-hash-token-parsing: done
+  3-3-tag-display-as-chips-on-todo-rows: done
+  3-4-tag-removal-from-a-todo: done
   epic-3-retrospective: optional
 
   # ─── EPIC 4: Filtering ─────────────────────────────────────────────────────

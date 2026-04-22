@@ -17,6 +17,7 @@ export function TodoItem({ todo }: TodoItemProps) {
   const { dispatch } = useTodos()
   const { showToast } = useToast()
   const [isEditing, setIsEditing] = useState(false)
+  const [isLeaving, setIsLeaving] = useState(false)
 
   async function handleToggle() {
     const previousTodo = todo
@@ -33,13 +34,16 @@ export function TodoItem({ todo }: TodoItemProps) {
   }
 
   async function handleDelete() {
-    const previousTodo = todo
+    setIsLeaving(true)
+    await new Promise<void>(resolve => setTimeout(resolve, 250))
 
+    const previousTodo = todo
     dispatch({ type: 'DELETE_TODO_OPTIMISTIC', payload: todo.id })
 
     try {
       await deleteTodo(todo.id)
     } catch {
+      setIsLeaving(false)
       dispatch({ type: 'DELETE_TODO_ROLLBACK', payload: previousTodo })
       showToast('Something went wrong')
     }
@@ -80,7 +84,13 @@ export function TodoItem({ todo }: TodoItemProps) {
   }
 
   return (
-    <li className="flex items-center gap-3 py-3 group">
+    <li
+      className={cn(
+        'flex items-center gap-3 py-3 group overflow-hidden',
+        'motion-safe:animate-todo-enter',
+        isLeaving && 'motion-safe:animate-todo-leave',
+      )}
+    >
       <Checkbox checked={todo.completed} onChange={handleToggle} />
       <div />
       {isEditing ? (
@@ -97,7 +107,10 @@ export function TodoItem({ todo }: TodoItemProps) {
           tabIndex={0}
           className={cn(
             'flex-1 text-[15px] cursor-text',
-            todo.completed ? 'line-through text-neutral-400' : 'text-neutral-900',
+            'motion-safe:transition-colors motion-safe:duration-300',
+            todo.completed
+              ? 'line-through text-paper-muted decoration-paper-muted/60'
+              : 'text-paper-text',
           )}
         >
           {todo.title}

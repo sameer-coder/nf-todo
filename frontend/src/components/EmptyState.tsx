@@ -5,7 +5,7 @@ interface EmptyStateProps {
 
 export function EmptyState({ variant, onClearFilters }: EmptyStateProps) {
   return (
-    <div className="flex flex-col items-center justify-center py-16 text-neutral-400 text-sm">
+    <div className="flex flex-col items-center justify-center py-16 text-paper-muted text-sm">
       {variant === 'empty' ? (
         <p>No todos yet.</p>
       ) : (
@@ -13,7 +13,7 @@ export function EmptyState({ variant, onClearFilters }: EmptyStateProps) {
           <p>No todos match your filters.</p>
           <button
             onClick={onClearFilters}
-            className="mt-2 text-indigo-600 hover:text-indigo-800 underline focus-visible:ring-2 focus-visible:ring-indigo-500 rounded"
+            className="mt-2 text-paper-ink hover:text-paper-pencil underline focus-visible:ring-2 focus-visible:ring-paper-ink rounded"
           >
             Clear filters
           </button>

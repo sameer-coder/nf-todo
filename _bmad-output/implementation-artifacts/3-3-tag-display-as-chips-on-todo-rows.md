@@ -1,6 +1,6 @@
 # Story 3.3: Tag Display as Chips on Todo Rows
 
-Status: review
+Status: done
 
 ## Story
 

@@ -19,6 +19,11 @@ This file tracks issues deferred during code reviews. Items here are real but no
 
 - Missing regression coverage for the completed-to-incomplete toggle path in Story 2.3 — deferred because the user asked not to update non-failing test cases. [`frontend/src/components/TodoItem.test.tsx`] 
 
+## Deferred from: code review of story-3.1 and story-3.4 (2026-04-22)
+
+- Missing visible keyboard focus state on clickable todo title — deferred by user to keep Story 3.1 closed without additional UI polish work. [`frontend/src/components/TodoItem.tsx`]
+- Remove-tag button does not meet the required 44×44 touch target — deferred by user to keep Story 3.4 closed without resizing the chip controls. [`frontend/src/components/TagChip.tsx`]
+
 ## Deferred from: code review of 1-4-todo-rest-api-routes-with-input-validation (2026-04-21)
 
 - Multi-tag OR filter (`GET /api/todos?tags=a,b`) has no test coverage — OR logic is correctly implemented but no test exercises more than one tag; not in spec task list. [`backend/src/routes/todos.test.ts`]

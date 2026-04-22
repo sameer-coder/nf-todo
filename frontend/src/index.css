@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  color: #0f172a;
-  background: #f8fafc;
-  font-family: Inter, sans-serif;
+  color: #2c2518;
+  background: #ede8d4;
+  font-family: 'Patrick Hand', cursive;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
