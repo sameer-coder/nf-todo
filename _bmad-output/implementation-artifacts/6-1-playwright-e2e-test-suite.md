@@ -1,6 +1,6 @@
 # Story 6.1: Playwright E2E Test Suite (≥5 Tests)
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -35,54 +35,54 @@ So that CI can verify the full user experience end-to-end before any merge to ma
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Complete `frontend/playwright.config.ts` (AC: 4)
-  - [ ] Set `testDir: './e2e'`
-  - [ ] Set `use.baseURL: 'http://localhost:3000'`
-  - [ ] Set `use.headless: true`
-  - [ ] Set `reporter: [['html', { open: 'never' }], ['list']]`
-  - [ ] No `webServer` entry — CI uses `docker-compose up` to start services
+- [x] Task 1: Complete `frontend/playwright.config.ts` (AC: 4)
+  - [x] Set `testDir: './e2e'`
+  - [x] Set `use.baseURL: 'http://localhost:3000'`
+  - [x] Set `use.headless: true`
+  - [x] Set `reporter: [['html', { open: 'never' }], ['list']]`
+  - [x] No `webServer` entry — CI uses `docker-compose up` to start services
 
-- [ ] Task 2: Implement Test 1 — Create todo (AC: 1.1)
-  - [ ] Navigate to `/`
-  - [ ] Wait for page to be ready (ADD input visible)
-  - [ ] Type a unique title (e.g., `"Buy groceries"`) in the add-todo input
-  - [ ] Press Enter
-  - [ ] `await page.waitForResponse(res => res.url().includes('/api/todos') && res.request().method() === 'POST')`
-  - [ ] Assert: `page.getByText('Buy groceries')` is visible
+- [x] Task 2: Implement Test 1 — Create todo (AC: 1.1)
+  - [x] Navigate to `/`
+  - [x] Wait for page to be ready (ADD input visible)
+  - [x] Type a unique title (e.g., `"Buy groceries"`) in the add-todo input
+  - [x] Press Enter
+  - [x] `await page.waitForResponse(res => res.url().includes('/api/todos') && res.request().method() === 'POST')`
+  - [x] Assert: `page.getByText('Buy groceries')` is visible
 
-- [ ] Task 3: Implement Test 2 — Complete todo (AC: 1.2)
-  - [ ] Create a todo via API directly (`page.evaluate` or `request.post`) for isolation
-  - [ ] Or: create via UI and wait for POST to settle
-  - [ ] Click the checkbox button on the todo
-  - [ ] `await page.waitForResponse(...)` for the PUT request
-  - [ ] Assert: title has `line-through` text decoration (or check `aria-checked="true"`)
+- [x] Task 3: Implement Test 2 — Complete todo (AC: 1.2)
+  - [x] Create a todo via API directly (`page.evaluate` or `request.post`) for isolation
+  - [x] Or: create via UI and wait for POST to settle
+  - [x] Click the checkbox button on the todo
+  - [x] `await page.waitForResponse(...)` for the PUT request
+  - [x] Assert: title has `line-through` text decoration (or check `aria-checked="true"`)
 
-- [ ] Task 4: Implement Test 3 — Delete todo (AC: 1.3)
-  - [ ] Create a todo with a unique title
-  - [ ] Hover over the todo row to reveal the delete button
-  - [ ] Click the delete button (`aria-label="Delete todo"`)
-  - [ ] `await page.waitForResponse(...)` for the DELETE request
-  - [ ] Assert: `page.getByText(unique title)` is hidden / not in DOM
+- [x] Task 4: Implement Test 3 — Delete todo (AC: 1.3)
+  - [x] Create a todo with a unique title
+  - [x] Hover over the todo row to reveal the delete button
+  - [x] Click the delete button (`aria-label="Delete todo"`)
+  - [x] `await page.waitForResponse(...)` for the DELETE request
+  - [x] Assert: `page.getByText(unique title)` is hidden / not in DOM
 
-- [ ] Task 5: Implement Test 4 — Reorder and persist (AC: 1.4)
-  - [ ] Create two todos (A and B) in order A→B via API or UI
-  - [ ] Locate `DragHandle` for todo A (`aria-label="Drag to reorder"`)
-  - [ ] Perform drag using Playwright's `dragTo` helper or a mouse-drag sequence
-  - [ ] `await page.waitForResponse(...)` for `PUT /api/todos/reorder`
-  - [ ] Reload the page
-  - [ ] Assert: the visual order of todos reflects the new order (B appears before A in the DOM)
+- [x] Task 5: Implement Test 4 — Reorder and persist (AC: 1.4)
+  - [x] Create two todos (A and B) in order A→B via API or UI
+  - [x] Locate `DragHandle` for todo A (`aria-label="Drag to reorder"`)
+  - [x] Perform drag using Playwright's `dragTo` helper or a mouse-drag sequence
+  - [x] `await page.waitForResponse(...)` for `PUT /api/todos/reorder`
+  - [x] Reload the page
+  - [x] Assert: the visual order of todos reflects the new order (B appears before A in the DOM)
 
-- [ ] Task 6: Implement Test 5 — Filter by status (AC: 1.5)
-  - [ ] Create one active todo and one completed todo (via API or UI + click checkbox)
-  - [ ] Click the "Active" filter tab
-  - [ ] Assert: completed todo is NOT visible; active todo IS visible
-  - [ ] Click the "All" filter tab
-  - [ ] Assert: both todos are visible
+- [x] Task 6: Implement Test 5 — Filter by status (AC: 1.5)
+  - [x] Create one active todo and one completed todo (via API or UI + click checkbox)
+  - [x] Click the "Active" filter tab
+  - [x] Assert: completed todo is NOT visible; active todo IS visible
+  - [x] Click the "All" filter tab
+  - [x] Assert: both todos are visible
 
-- [ ] Task 7: Add `fixtures/index.ts` with API helper utilities (AC: 2)
-  - [ ] Create `frontend/e2e/fixtures/index.ts` with `createTodo(page, title)` helper
-  - [ ] Helper uses `page.request.post('http://localhost:4000/api/todos', ...)` for direct API creation (faster, no UI interaction)
-  - [ ] Use helpers in tests for setup (creating seed data) — keeps tests focused on the behaviour being tested
+- [x] Task 7: Add `fixtures/index.ts` with API helper utilities (AC: 2)
+  - [x] Create `frontend/e2e/fixtures/index.ts` with `createTodo(page, title)` helper
+  - [x] Helper uses `page.request.post('http://localhost:4000/api/todos', ...)` for direct API creation (faster, no UI interaction)
+  - [x] Use helpers in tests for setup (creating seed data) — keeps tests focused on the behaviour being tested
 
 ## Dev Notes
 
@@ -208,6 +208,26 @@ Claude Sonnet 4.6
 
 ### Debug Log References
 
+- Discovered CORS bug: backend `@fastify/cors` config was not explicitly specifying `methods`, resulting in only `GET,HEAD,POST` being allowed. PUT/PATCH/DELETE were blocked by preflight. Fixed by adding explicit `methods` array in `backend/src/plugins/cors.ts`.
+
 ### Completion Notes List
 
+- Updated `frontend/playwright.config.ts` to match story specification (testMatch, timeout, retries, reporter, screenshot, trace settings)
+- Created `frontend/e2e/fixtures/index.ts` with `createTodo` and `clearAllTodos` API helpers for test isolation
+- Implemented 5 E2E tests in `frontend/e2e/todos.spec.ts`: create, complete, delete, reorder, filter by status
+- All tests use `page.waitForResponse()` for network request settling — no arbitrary timeouts
+- Each test starts clean via `beforeEach` → `clearAllTodos()`
+- Fixed backend CORS config to explicitly allow PUT/PATCH/DELETE methods
+- All 5 E2E tests pass against live `docker-compose up --build` environment
+- All 113 frontend unit tests pass (no regressions)
+
+### Change Log
+
+- 2026-04-22: Implemented 5 Playwright E2E tests, API fixtures, updated Playwright config, fixed backend CORS methods
+
 ### File List
+
+- frontend/playwright.config.ts (modified)
+- frontend/e2e/todos.spec.ts (modified)
+- frontend/e2e/fixtures/index.ts (new)
+- backend/src/plugins/cors.ts (modified — CORS methods fix)

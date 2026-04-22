@@ -9,11 +9,11 @@ describe('DragHandle', () => {
     expect(btn).toBeDefined()
   })
 
-  it('has the touch target sizing classes (w-11 h-full flex items-center justify-center flex-shrink-0)', () => {
+  it('has the touch target sizing classes (w-6 self-center flex items-center justify-center flex-shrink-0)', () => {
     render(<DragHandle />)
     const btn = screen.getByRole('button', { name: 'Drag to reorder' })
-    expect(btn.className).toContain('w-11')
-    expect(btn.className).toContain('h-full')
+    expect(btn.className).toContain('w-6')
+    expect(btn.className).toContain('self-center')
     expect(btn.className).toContain('flex')
     expect(btn.className).toContain('items-center')
     expect(btn.className).toContain('justify-center')

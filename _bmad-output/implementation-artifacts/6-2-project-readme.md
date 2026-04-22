@@ -1,6 +1,6 @@
 # Story 6.2: Project README
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -29,51 +29,51 @@ So that I can set up, run, test, and understand the project without any prior co
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Write Section 1 — Project Overview (AC: 1.1)
-  - [ ] Brief description of nf-todo: personal todo app, single-user, no auth
-  - [ ] Tech stack table: React (Vite, TypeScript, Tailwind), Fastify (Node.js, TypeScript), SQLite (better-sqlite3), Docker (multi-stage), GitHub Actions CI
-  - [ ] Scope: local-only development tool, runs in Docker
+- [x] Task 1: Write Section 1 — Project Overview (AC: 1.1)
+  - [x] Brief description of nf-todo: personal todo app, single-user, no auth
+  - [x] Tech stack table: React (Vite, TypeScript, Tailwind), Fastify (Node.js, TypeScript), SQLite (better-sqlite3), Docker (multi-stage), GitHub Actions CI
+  - [x] Scope: local-only development tool, runs in Docker
 
-- [ ] Task 2: Write Section 2 — Local Setup (AC: 1.2, 2)
-  - [ ] Prerequisites: Docker Desktop (latest), Git
-  - [ ] Step-by-step quickstart:
+- [x] Task 2: Write Section 2 — Local Setup (AC: 1.2, 2)
+  - [x] Prerequisites: Docker Desktop (latest), Git
+  - [x] Step-by-step quickstart:
     ```
     git clone <repo-url>
     cd nf-todo
     docker-compose up --build
     ```
-  - [ ] Access URLs: `http://localhost:3000` (app), `http://localhost:4000/api/health` (backend health)
-  - [ ] Note: no additional manual steps required
+  - [x] Access URLs: `http://localhost:3000` (app), `http://localhost:4000/api/health` (backend health)
+  - [x] Note: no additional manual steps required
 
-- [ ] Task 3: Write Section 3 — Architecture Overview (AC: 1.3)
-  - [ ] Monorepo structure: `/frontend` (React SPA, served by nginx), `/backend` (Fastify REST API)
-  - [ ] Communication: frontend calls backend via HTTP REST (`http://localhost:4000/api/todos`)
-  - [ ] Data persistence: SQLite file at `/data/todos.db` in named Docker volume `backend_data`
-  - [ ] Repository abstraction: routes only talk to `ITodoRepository`, not `better-sqlite3` directly
-  - [ ] State management: React Context API + useReducer, optimistic UI on all mutations
-  - [ ] Filter state: URL query params via React Router
-  - [ ] Monorepo directory tree (simplified)
+- [x] Task 3: Write Section 3 — Architecture Overview (AC: 1.3)
+  - [x] Monorepo structure: `/frontend` (React SPA, served by nginx), `/backend` (Fastify REST API)
+  - [x] Communication: frontend calls backend via HTTP REST (`http://localhost:4000/api/todos`)
+  - [x] Data persistence: SQLite file at `/data/todos.db` in named Docker volume `backend_data`
+  - [x] Repository abstraction: routes only talk to `ITodoRepository`, not `better-sqlite3` directly
+  - [x] State management: React Context API + useReducer, optimistic UI on all mutations
+  - [x] Filter state: URL query params via React Router
+  - [x] Monorepo directory tree (simplified)
 
-- [ ] Task 4: Write Section 4 — Testing Instructions (AC: 1.4)
-  - [ ] Unit tests (frontend): `cd frontend && npm test`
-  - [ ] Unit/integration tests (backend): `cd backend && npm test`
-  - [ ] Coverage report: `npm run test:coverage` in each directory
-  - [ ] Coverage threshold: 70% enforced by Vitest — build fails if below
-  - [ ] E2E tests (local): `docker-compose up --build -d && cd frontend && npx playwright install chromium && npm run test:e2e`
-  - [ ] CI: GitHub Actions runs all tests on every push to `main`
+- [x] Task 4: Write Section 4 — Testing Instructions (AC: 1.4)
+  - [x] Unit tests (frontend): `cd frontend && npm test`
+  - [x] Unit/integration tests (backend): `cd backend && npm test`
+  - [x] Coverage report: `npm run test:coverage` in each directory
+  - [x] Coverage threshold: 70% enforced by Vitest — build fails if below
+  - [x] E2E tests (local): `docker-compose up --build -d && cd frontend && npx playwright install chromium && npm run test:e2e`
+  - [x] CI: GitHub Actions runs all tests on every push to `main`
 
-- [ ] Task 5: Write Section 5 — Deployment (AC: 1.5)
-  - [ ] `docker-compose up --build` — builds and starts everything:
+- [x] Task 5: Write Section 5 — Deployment (AC: 1.5)
+  - [x] `docker-compose up --build` — builds and starts everything:
     - `frontend` container: Vite build → nginx serving static files at port 3000 (host)
     - `backend` container: TypeScript compile → Node.js Fastify API at port 4000 (host)
-  - [ ] Health verification: `curl http://localhost:4000/api/health` → `{"status":"ok"}`
-  - [ ] Data persistence: named volume `backend_data` survives `docker-compose down`; use `docker-compose down -v` to wipe data
-  - [ ] Stopping: `docker-compose down`
+  - [x] Health verification: `curl http://localhost:4000/api/health` → `{"status":"ok"}`
+  - [x] Data persistence: named volume `backend_data` survives `docker-compose down`; use `docker-compose down -v` to wipe data
+  - [x] Stopping: `docker-compose down`
 
-- [ ] Task 6: Review for completeness (AC: 3)
-  - [ ] No placeholder text (e.g., `<repo-url>` should be the actual repo URL if known)
-  - [ ] No TODO/FIXME comments
-  - [ ] All commands tested / verified against the actual working implementation
+- [x] Task 6: Review for completeness (AC: 3)
+  - [x] No placeholder text (e.g., `<repo-url>` should be the actual repo URL if known)
+  - [x] No TODO/FIXME comments
+  - [x] All commands tested / verified against the actual working implementation
 
 ## Dev Notes
 
@@ -173,4 +173,16 @@ Claude Sonnet 4.6
 
 ### Completion Notes List
 
+- Replaced stub README with comprehensive documentation covering all 5 required sections
+- All commands match the actual working implementation (verified during Story 6-1 E2E testing)
+- Includes table of contents, tech stack table, monorepo directory tree, architecture diagram, and container descriptions
+- Git clone URL uses `https://github.com/your-org/nf-todo` placeholder per dev notes (actual URL not known at story time)
+- No TODO/FIXME comments, no placeholder text beyond the repo URL
+
+### Change Log
+
+- 2026-04-22: Wrote comprehensive README.md with all 5 sections (Project Overview, Local Setup, Architecture, Testing, Deployment)
+
 ### File List
+
+- README.md (modified)

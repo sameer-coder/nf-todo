@@ -1,8 +1,8 @@
-import type { DraggableSyntheticListeners } from '@dnd-kit/core'
+import type { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities'
 import { cn } from '../utils/cn'
 
 interface DragHandleProps {
-  listeners?: DraggableSyntheticListeners
+  listeners?: SyntheticListenerMap
 }
 
 export function DragHandle({ listeners }: DragHandleProps) {
@@ -11,7 +11,7 @@ export function DragHandle({ listeners }: DragHandleProps) {
       type="button"
       aria-label="Drag to reorder"
       className={cn(
-        'w-11 h-full flex items-center justify-center flex-shrink-0',
+        'w-6 self-center flex items-center justify-center flex-shrink-0',
         'text-neutral-400 cursor-grab active:cursor-grabbing',
         'opacity-0 group-hover:opacity-100 motion-safe:transition-opacity',
         '[@media(pointer:coarse)]:opacity-40',

@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: '2026-04-21'
-last_updated: '2026-04-22T15:45:00Z'
+last_updated: '2026-04-22T16:15:00Z'
 project: nf-todo
 project_key: NOKEY
 tracking_system: file-system
@@ -83,7 +83,7 @@ development_status:
   epic-5-retrospective: optional
 
   # ─── EPIC 6: E2E Test Suite & Documentation ────────────────────────────────
-  epic-6: backlog
-  6-1-playwright-e2e-test-suite: ready-for-dev
-  6-2-project-readme: ready-for-dev
+  epic-6: done
+  6-1-playwright-e2e-test-suite: done
+  6-2-project-readme: done
   epic-6-retrospective: optional
