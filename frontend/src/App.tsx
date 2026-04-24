@@ -11,7 +11,7 @@ import { EmptyState } from './components/EmptyState'
 import { Toast } from './components/Toast'
 
 function SkeletonRow() {
-  return <div className="mb-3 h-14 rounded-2xl border border-paper-line/80 bg-paper-header/70 motion-safe:animate-pulse" />
+  return <div className="mb-3 h-14 rounded-2xl border border-paper-line bg-paper-header motion-safe:animate-pulse" />
 }
 
 function AppContent() {
@@ -38,6 +38,9 @@ function AppContent() {
 
   const hasAnyFilters = status === 'active' || status === 'completed' || activeTags.length > 0
 
+  const totalCount = state.todos.length
+  const activeCount = useMemo(() => state.todos.filter(t => !t.completed).length, [state.todos])
+
   function clearAllFilters() {
     setSearchParams(new URLSearchParams())
   }
@@ -56,54 +59,65 @@ function AppContent() {
   }, [dispatch, showToast])
 
   return (
-    <main className="min-h-screen bg-paper-bg font-paper text-paper-text">
-      <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16">
-        <section className="relative overflow-hidden rounded-[28px] border border-paper-border/80 bg-paper-surface/88 shadow-paper backdrop-blur-sm">
-          <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-r from-paper-ink/10 via-[#dfe9dd] to-[#f0f4e8]" />
-          <div className="relative border-b border-paper-line/90 px-6 py-6 sm:px-8">
+    <main className="min-h-screen font-paper text-paper-text">
+      <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-16">
+        <section className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/80 shadow-paper backdrop-blur-xl">
+          <div className="pointer-events-none absolute -top-24 -right-16 h-64 w-64 rounded-full bg-accent-gradient opacity-30 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-24 -left-16 h-56 w-56 rounded-full bg-gradient-to-tr from-accent-400 to-fuchsia-400 opacity-20 blur-3xl" />
+
+          <header className="relative px-6 pt-7 pb-6 sm:px-8 sm:pt-9 sm:pb-7">
             <div className="flex items-start justify-between gap-4">
-              <div className="space-y-2">
-                <div className="inline-flex items-center gap-2 rounded-full border border-paper-border/80 bg-paper-surface/90 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-paper-muted">
+              <div className="space-y-3">
+                <div className="inline-flex items-center gap-2 rounded-full border border-accent-200/80 bg-accent-50/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent-700">
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent-gradient" />
                   Focus list
                 </div>
                 <div>
-                  <h1 className="text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">My Tasks</h1>
-                  <p className="mt-1 text-sm text-paper-muted">Keep today tidy with a clear, lightweight task flow.</p>
+                  <h1 className="bg-text-gradient bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-4xl">
+                    My Tasks
+                  </h1>
+                  <p className="mt-2 text-sm text-paper-muted">
+                    {totalCount === 0
+                      ? 'A fresh slate — add your first task below.'
+                      : `${activeCount} of ${totalCount} open · stay in flow.`}
+                  </p>
                 </div>
               </div>
-              <div className="hidden h-12 w-12 items-center justify-center rounded-2xl border border-paper-border/80 bg-paper-surface/90 text-paper-ink shadow-sm sm:flex">
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5h6m-7 5h8m-9 5h10M7 5.5A1.5 1.5 0 108.5 7 1.5 1.5 0 007 5.5zm0 5A1.5 1.5 0 108.5 12 1.5 1.5 0 007 10.5zm0 5A1.5 1.5 0 108.5 17 1.5 1.5 0 007 15.5z" />
+              <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-accent-gradient text-white shadow-lg shadow-accent-500/30 sm:flex">
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
               </div>
             </div>
-          </div>
-          <div className="relative px-6 py-5 sm:px-8 sm:py-6">
-            <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-paper-line to-transparent" />
-            <div className="rounded-[24px] border border-paper-line/80 bg-paper-surface/92 p-4 sm:p-5">
-              {state.isLoading ? (
-                <>
-                  <SkeletonRow />
-                  <SkeletonRow />
-                  <SkeletonRow />
-                </>
-              ) : (
-                <>
-                  <AddTodoInput />
-                  <StatusFilterBar />
-                  <FilterChipBar />
-                  {!hasLoadError && state.todos.length === 0 ? (
-                    <EmptyState variant="empty" />
-                  ) : !hasLoadError && filteredTodos.length === 0 && hasAnyFilters ? (
-                    <EmptyState variant="no-results" onClearFilters={clearAllFilters} />
-                  ) : (
-                    <TodoList todos={filteredTodos} />
-                  )}
-                </>
-              )}
-            </div>
+          </header>
+
+          <div className="relative border-t border-paper-line/80 px-6 py-6 sm:px-8">
+            {state.isLoading ? (
+              <>
+                <SkeletonRow />
+                <SkeletonRow />
+                <SkeletonRow />
+              </>
+            ) : (
+              <>
+                <AddTodoInput />
+                <StatusFilterBar />
+                <FilterChipBar />
+                {!hasLoadError && state.todos.length === 0 ? (
+                  <EmptyState variant="empty" />
+                ) : !hasLoadError && filteredTodos.length === 0 && hasAnyFilters ? (
+                  <EmptyState variant="no-results" onClearFilters={clearAllFilters} />
+                ) : (
+                  <TodoList todos={filteredTodos} />
+                )}
+              </>
+            )}
           </div>
         </section>
+
+        <p className="mt-6 text-center text-xs text-paper-muted">
+          Built for flow · Press <kbd className="rounded border border-paper-border bg-white px-1.5 py-0.5 font-sans text-[10px] text-paper-text">Enter</kbd> to add
+        </p>
       </div>
       <Toast />
     </main>
@@ -112,13 +126,12 @@ function AppContent() {
 
 function App() {
   return (
-    <TodoProvider>
-      <ToastProvider>
+    <ToastProvider>
+      <TodoProvider>
         <AppContent />
-      </ToastProvider>
-    </TodoProvider>
+      </TodoProvider>
+    </ToastProvider>
   )
 }
 
 export default App
-

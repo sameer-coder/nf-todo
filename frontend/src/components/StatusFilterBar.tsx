@@ -24,7 +24,11 @@ export function StatusFilterBar() {
   }
 
   return (
-    <div className="flex gap-4 mb-4" role="tablist" aria-label="Filter todos by status">
+    <div
+      className="mb-4 inline-flex gap-1 rounded-xl border border-paper-border bg-paper-header p-1"
+      role="tablist"
+      aria-label="Filter todos by status"
+    >
       {STATUSES.map(status => (
         <button
           key={status}
@@ -32,11 +36,11 @@ export function StatusFilterBar() {
           aria-selected={current === status}
           onClick={() => setStatus(status)}
           className={cn(
-            'text-sm capitalize rounded',
-            'focus-visible:ring-2 focus-visible:ring-paper-ink focus-visible:ring-offset-2',
+            'rounded-lg px-3 py-1 text-xs font-medium capitalize motion-safe:transition-all',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-1',
             current === status
-              ? 'font-semibold text-paper-text'
-              : 'text-paper-muted hover:text-paper-pencil',
+              ? 'bg-white font-semibold text-paper-text shadow-sm'
+              : 'text-paper-muted hover:text-paper-text',
           )}
         >
           {LABELS[status]}

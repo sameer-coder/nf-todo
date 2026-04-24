@@ -105,12 +105,12 @@ export function TodoItem({ todo }: TodoItemProps) {
       style={style}
       {...attributes}
       className={cn(
-        'group overflow-hidden rounded-2xl border border-paper-line/80 bg-paper-surface px-3 py-3 shadow-sm',
-        'flex items-center gap-3',
-        'motion-safe:transition-transform motion-safe:duration-200 hover:-translate-y-0.5',
+        'group overflow-hidden rounded-2xl border border-paper-border/80 bg-white/95 px-3 py-2.5',
+        'flex items-center gap-2',
+        'motion-safe:transition-all motion-safe:duration-200 hover:border-accent-200 hover:shadow-soft',
         'motion-safe:animate-todo-enter',
         isLeaving && 'motion-safe:animate-todo-leave',
-        isDragging && 'shadow-md opacity-75 bg-white',
+        isDragging && 'shadow-paper opacity-80 bg-white ring-1 ring-accent-300',
       )}
     >
       <DragHandle listeners={listeners} />
@@ -131,8 +131,8 @@ export function TodoItem({ todo }: TodoItemProps) {
             'flex-1 cursor-text text-[15px] font-medium leading-6',
             'motion-safe:transition-colors motion-safe:duration-300',
             todo.completed
-              ? 'line-through text-neutral-400 decoration-paper-muted/60'
-              : 'text-neutral-900',
+              ? 'line-through text-paper-muted/70 decoration-paper-muted/40'
+              : 'text-paper-text',
           )}
         >
           {todo.title}

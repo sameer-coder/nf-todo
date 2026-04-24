@@ -38,19 +38,19 @@ describe('TodoItem', () => {
     expect(screen.getByText('Test todo')).toBeDefined()
   })
 
-  it('applies line-through and text-neutral-400 when todo is completed', () => {
+  it('applies line-through and muted color when todo is completed', () => {
     const completedTodo: Todo = { ...baseTodo, completed: true }
     renderWithProviders(completedTodo)
     const titleEl = screen.getByText('Test todo')
     expect(titleEl.className).toContain('line-through')
-    expect(titleEl.className).toContain('text-neutral-400')
+    expect(titleEl.className).toContain('text-paper-muted')
   })
 
   it('does not apply line-through when todo is not completed', () => {
     renderWithProviders(baseTodo)
     const titleEl = screen.getByText('Test todo')
     expect(titleEl.className).not.toContain('line-through')
-    expect(titleEl.className).toContain('text-neutral-900')
+    expect(titleEl.className).toContain('text-paper-text')
   })
 
   it('renders a checkbox with aria-checked matching completed state', () => {

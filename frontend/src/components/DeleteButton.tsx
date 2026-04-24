@@ -11,14 +11,14 @@ export function DeleteButton({ onDelete }: DeleteButtonProps) {
       aria-label="Delete todo"
       onClick={onDelete}
       className={cn(
-        'h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border border-transparent bg-transparent',
-        'flex opacity-30',
+        'h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-transparent bg-transparent',
+        'flex opacity-40',
         '[@media(hover:hover)_and_(pointer:fine)]:opacity-0',
         '[@media(hover:hover)_and_(pointer:fine)]:group-hover:opacity-100',
         '[@media(hover:hover)_and_(pointer:fine)]:focus-visible:opacity-100',
         'motion-safe:transition-all',
-        'text-paper-muted hover:border-red-200 hover:bg-red-50 hover:text-red-700',
-        'focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-paper-ink focus-visible:ring-offset-2',
+        'text-paper-muted hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2',
       )}
     >
       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

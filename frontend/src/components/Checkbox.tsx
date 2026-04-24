@@ -14,17 +14,17 @@ export function Checkbox({ checked, onChange }: CheckboxProps) {
       aria-label="Mark complete"
       onClick={onChange}
       className={cn(
-        'w-11 h-11 flex items-center justify-center flex-shrink-0',
-        'rounded-xl focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2',
+        'w-10 h-10 flex items-center justify-center flex-shrink-0',
+        'rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-2',
       )}
     >
       <span
         className={cn(
-          'flex h-6 w-6 items-center justify-center rounded-full border-2',
-          'motion-safe:transition-colors motion-safe:duration-200',
+          'flex h-5 w-5 items-center justify-center rounded-md border-2',
+          'motion-safe:transition-all motion-safe:duration-200',
           checked
-            ? 'bg-indigo-600 border-indigo-600'
-            : 'bg-transparent border-paper-border shadow-[inset_0_1px_1px_rgba(23,32,27,0.06)]',
+            ? 'bg-accent-gradient border-transparent shadow-sm shadow-accent-500/40'
+            : 'bg-white border-paper-border hover:border-accent-400 hover:bg-accent-50/60',
         )}
       >
         {checked && (
@@ -37,7 +37,7 @@ export function Checkbox({ checked, onChange }: CheckboxProps) {
             <path
               d="M2 6l3 3 5-5"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="2.2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
