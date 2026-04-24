@@ -19,11 +19,12 @@ export function Toast() {
       aria-live="polite"
       className={cn(
         'fixed bottom-4 right-4 z-50',
-        'rounded-2xl border border-paper-border bg-paper-surface/95 px-4 py-3 backdrop-blur-sm',
-        'text-sm text-paper-text shadow-paper',
-        'motion-safe:animate-in motion-safe:slide-in-from-bottom-2 motion-safe:fade-in',
+        'flex items-center gap-2 rounded-xl border border-paper-border bg-white/95 px-4 py-3 backdrop-blur-sm',
+        'text-sm font-medium text-paper-text shadow-soft',
+        'motion-safe:animate-fade-in-up',
       )}
     >
+      <span className="inline-flex h-2 w-2 rounded-full bg-rose-500" aria-hidden="true" />
       {message}
     </div>
   )

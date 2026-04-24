@@ -8,6 +8,7 @@ import { parseTagsFromTitle } from '../utils/parseTagsFromTitle'
 export function AddTodoInput() {
   const inputRef = useRef<HTMLInputElement>(null)
   const [value, setValue] = useState('')
+  const [isFocused, setIsFocused] = useState(false)
   const { state, dispatch } = useTodos()
   const { showToast } = useToast()
 
@@ -55,17 +56,37 @@ export function AddTodoInput() {
     }
   }
 
+  const borderClass = isFocused
+    ? 'border-accent-400 shadow-glow'
+    : 'border-paper-border hover:border-paper-muted/50'
+
   return (
-    <div className="mb-5 rounded-2xl border border-paper-line/90 bg-paper-header/70 p-2">
+    <div className={`mb-5 flex items-center gap-2 rounded-2xl border bg-white/90 px-3 py-2 motion-safe:transition-all ${borderClass}`}>
+      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-50 text-accent-600">
+        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14m-7-7h14" />
+        </svg>
+      </div>
       <input
         ref={inputRef}
         type="text"
         value={value}
         onChange={e => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
         placeholder="Add a task…"
-        className="min-h-[44px] w-full rounded-xl bg-paper-surface px-4 text-[15px] text-paper-text outline-none ring-1 ring-transparent placeholder:text-paper-muted/70 motion-safe:transition-shadow focus-visible:ring-paper-ink/20 focus-visible:shadow-[0_0_0_4px_rgba(47,108,87,0.10)]"
+        className="min-h-[36px] w-full bg-transparent text-[15px] text-paper-text outline-none placeholder:text-paper-muted/80"
       />
+      <button
+        type="button"
+        onClick={handleSubmit}
+        disabled={!value.trim()}
+        aria-label="Add task"
+        className="shrink-0 rounded-lg bg-accent-gradient px-3 py-1.5 text-xs font-semibold text-white shadow-sm shadow-accent-500/30 motion-safe:transition-all hover:shadow-md hover:shadow-accent-500/40 disabled:cursor-not-allowed disabled:opacity-0 disabled:shadow-none"
+      >
+        Add
+      </button>
     </div>
   )
 }

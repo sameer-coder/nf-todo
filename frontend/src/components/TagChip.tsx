@@ -9,18 +9,18 @@ interface TagChipProps {
 
 export function TagChip({ tag, onClick, onRemove, active = false }: TagChipProps) {
   return (
-    <span className="inline-flex items-center gap-1 rounded-full pr-1">
+    <span className="inline-flex items-center gap-0.5 rounded-full">
       <button
         type="button"
         onClick={onClick}
         aria-pressed={active}
         aria-label={tag}
         className={cn(
-          'rounded-full px-2.5 py-1 text-xs font-medium',
-          'focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2',
+          'rounded-full px-2.5 py-0.5 text-[11px] font-semibold motion-safe:transition-colors',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-1',
           active
-            ? 'bg-indigo-50 text-indigo-700 font-semibold ring-1 ring-indigo-200'
-            : 'bg-neutral-100 text-neutral-600',
+            ? 'bg-accent-gradient text-white shadow-sm shadow-accent-500/30'
+            : 'bg-accent-50 text-accent-700 hover:bg-accent-100',
         )}
       >
         {tag}
@@ -34,12 +34,12 @@ export function TagChip({ tag, onClick, onRemove, active = false }: TagChipProps
             onRemove()
           }}
           className={cn(
-            'rounded-full p-1.5',
-            'text-paper-muted hover:bg-paper-surface hover:text-paper-pencil',
-            'focus-visible:ring-2 focus-visible:ring-paper-ink focus-visible:ring-offset-2 rounded-full',
+            'rounded-full p-1',
+            'text-paper-muted hover:bg-rose-50 hover:text-rose-600',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-1',
           )}
         >
-          <span aria-hidden="true" className="text-xs leading-none">×</span>
+          <span aria-hidden="true" className="text-[10px] leading-none">×</span>
         </button>
       )}
     </span>

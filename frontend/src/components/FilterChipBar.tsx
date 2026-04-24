@@ -36,7 +36,7 @@ export function FilterChipBar() {
   if (activeFilters.length === 0) return null
 
   return (
-    <div className="flex flex-wrap gap-2 items-center mb-3 motion-safe:animate-in motion-safe:fade-in">
+    <div className="mb-3 flex flex-wrap items-center gap-2 motion-safe:animate-fade-in-up">
       {activeFilters.map((filter, i) => (
         <FilterActiveChip
           key={i === 0 && status ? `status:${filter.label}` : `tag:${filter.label}`}
@@ -47,7 +47,7 @@ export function FilterChipBar() {
       <button
         type="button"
         onClick={() => setSearchParams(new URLSearchParams())}
-        className="text-xs text-paper-ink hover:text-paper-pencil underline focus-visible:ring-2 focus-visible:ring-paper-ink rounded"
+        className="text-[11px] font-medium text-accent-700 underline decoration-accent-200 decoration-2 underline-offset-4 hover:text-accent-600 hover:decoration-accent-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 rounded"
       >
         Clear all
       </button>

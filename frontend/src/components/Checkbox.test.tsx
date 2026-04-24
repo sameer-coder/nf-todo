@@ -27,23 +27,23 @@ describe('Checkbox', () => {
     expect(onChange).toHaveBeenCalledTimes(1)
   })
 
-  it('shows bg-indigo-600 when checked', () => {
+  it('shows accent gradient when checked', () => {
     render(<Checkbox checked={true} onChange={() => {}} />)
     const inner = screen.getByRole('checkbox').querySelector('span')
-    expect(inner?.className).toContain('bg-indigo-600')
+    expect(inner?.className).toContain('bg-accent-gradient')
   })
 
-  it('does not show bg-indigo-600 when unchecked', () => {
+  it('does not show accent gradient when unchecked', () => {
     render(<Checkbox checked={false} onChange={() => {}} />)
     const inner = screen.getByRole('checkbox').querySelector('span')
-    expect(inner?.className).not.toContain('bg-indigo-600')
+    expect(inner?.className).not.toContain('bg-accent-gradient')
   })
 
   it('has focus-visible ring classes', () => {
     render(<Checkbox checked={false} onChange={() => {}} />)
     const btn = screen.getByRole('checkbox')
     expect(btn.className).toContain('focus-visible:ring-2')
-    expect(btn.className).toContain('focus-visible:ring-indigo-500')
+    expect(btn.className).toContain('focus-visible:ring-accent-400')
     expect(btn.className).toContain('focus-visible:ring-offset-2')
   })
 

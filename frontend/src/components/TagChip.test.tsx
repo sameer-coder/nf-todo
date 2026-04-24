@@ -12,8 +12,8 @@ describe('TagChip', () => {
   it('has correct default (inactive) styling classes', () => {
     render(<TagChip tag="work" />)
     const btn = screen.getByRole('button', { name: 'work' })
-    expect(btn.className).toContain('bg-neutral-100')
-    expect(btn.className).toContain('text-neutral-600')
+    expect(btn.className).toContain('bg-accent-50')
+    expect(btn.className).toContain('text-accent-700')
     expect(btn.className).toContain('rounded-full')
   })
 
@@ -29,23 +29,23 @@ describe('TagChip', () => {
     render(<TagChip tag="focus-test" />)
     const btn = screen.getByRole('button', { name: 'focus-test' })
     expect(btn.className).toContain('focus-visible:ring-2')
-    expect(btn.className).toContain('focus-visible:ring-indigo-500')
-    expect(btn.className).toContain('focus-visible:ring-offset-2')
+    expect(btn.className).toContain('focus-visible:ring-accent-400')
+    expect(btn.className).toContain('focus-visible:ring-offset-1')
   })
 
   it('applies active styling classes when active={true}', () => {
     render(<TagChip tag="active-tag" active={true} />)
     const btn = screen.getByRole('button', { name: 'active-tag' })
-    expect(btn.className).toContain('bg-indigo-50')
-    expect(btn.className).toContain('text-indigo-700')
+    expect(btn.className).toContain('bg-accent-gradient')
+    expect(btn.className).toContain('text-white')
     expect(btn.className).toContain('font-semibold')
   })
 
   it('does NOT apply active styling when active is false (default)', () => {
     render(<TagChip tag="inactive" />)
     const btn = screen.getByRole('button', { name: 'inactive' })
-    expect(btn.className).not.toContain('bg-indigo-50')
-    expect(btn.className).not.toContain('text-indigo-700')
+    expect(btn.className).not.toContain('bg-accent-gradient')
+    expect(btn.className).not.toContain('text-white')
   })
 
   it('sets aria-pressed to match active prop', () => {

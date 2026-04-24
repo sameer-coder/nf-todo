@@ -17,10 +17,10 @@ describe('DeleteButton', () => {
     expect(onDelete).toHaveBeenCalledTimes(1)
   })
 
-  it('has opacity-30 class in default state (touch visibility)', () => {
+  it('has opacity-40 class in default state (touch visibility)', () => {
     render(<DeleteButton onDelete={() => {}} />)
     const btn = screen.getByLabelText('Delete todo')
-    expect(btn.className).toContain('opacity-30')
+    expect(btn.className).toContain('opacity-40')
   })
 
   it('reveals on hover-capable fine pointers', () => {

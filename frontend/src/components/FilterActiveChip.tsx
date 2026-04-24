@@ -5,15 +5,15 @@ interface FilterActiveChipProps {
 
 export function FilterActiveChip({ label, onRemove }: FilterActiveChipProps) {
   return (
-    <span className="bg-paper-ink/10 text-paper-ink ring-1 ring-paper-ink/30 font-semibold rounded-full px-2.5 py-0.5 text-xs inline-flex items-center gap-1">
+    <span className="inline-flex items-center gap-1 rounded-full bg-accent-gradient px-2.5 py-0.5 text-[11px] font-semibold text-white shadow-sm shadow-accent-500/30">
       {label}
       <button
         type="button"
         aria-label={`Remove filter ${label}`}
         onClick={onRemove}
-        className="p-1 -mr-1 hover:text-paper-pencil focus-visible:ring-2 focus-visible:ring-paper-ink focus-visible:ring-offset-2 rounded-full"
+        className="-mr-1 rounded-full p-0.5 text-white/80 hover:bg-white/20 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
       >
-        <span aria-hidden="true">×</span>
+        <span aria-hidden="true" className="text-xs leading-none">×</span>
       </button>
     </span>
   )

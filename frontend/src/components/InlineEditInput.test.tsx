@@ -89,8 +89,8 @@ describe('InlineEditInput', () => {
   it('has correct styling classes', () => {
     renderComponent()
     const input = screen.getByRole('textbox')
-    expect(input.className).toContain('bg-transparent')
+    expect(input.className).toContain('bg-white')
     expect(input.className).toContain('outline-none')
-    expect(input.className).toContain('focus:ring-indigo-300')
+    expect(input.className).toContain('focus:border-accent-500')
   })
 })
